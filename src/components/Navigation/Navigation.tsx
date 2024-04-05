@@ -55,7 +55,7 @@ const Navigation = () => {
         </List>
     );
     return (
-        <AppBar position="static" sx={{p: '15px', background: '#008E39'}}>
+        <AppBar position="absolute" sx={{p: '15px', background: '#008E39'}}>
             <Toolbar>
                 <Box component="div" sx={{ flexGrow: 1 }}>
                     <img src={logoImage} alt="Logo" style={{maxHeight: '50px'}}/>
