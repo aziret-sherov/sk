@@ -2,23 +2,24 @@ import styled from "styled-components";
 import {Container} from "@mui/material";
 import {ReactNode} from "react";
 
-const StyledContainer = styled(Container)<{ background?: string }>`
+const StyledContainer = styled(Container)<{ background?: string, height?: string }>`
     padding-top: 60px;
     display: flex;
     justify-content: center;
     align-content: center;
-    height: 100vh;
-    background: ${(props) => props?.background || '#161616'};
+    background: ${({background}) => background || '#161616'};
+    height: ${({height}) => height};
     padding-left: 50px;
 `;
 
 interface props {
     background?: string
+    height?: string
     children?: ReactNode
 }
 
-const CustomContainer = ({background, children}: props) => {
-    return <StyledContainer maxWidth={false} background={background}>{children}</StyledContainer>;
+const CustomContainer = ({background, height = '100vh', children}: props) => {
+    return <StyledContainer maxWidth={false} background={background} height={height}>{children}</StyledContainer>;
 };
 
 export default CustomContainer;

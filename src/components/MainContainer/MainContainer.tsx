@@ -6,7 +6,7 @@ import CustomContainer from "../CustomContainer/CustomContainer.tsx";
 const Title = styled(Typography)`
     font-size: 108px;
     font-weight: 600;
-    line-height: 54px; 
+    line-height: 54px;
     text-align: left;
     color: #FFFFFF;
 `;
@@ -25,14 +25,18 @@ const MainContainer = () => {
     return (
         <CustomContainer>
             <Box>
-                <Title lineHeight={isMobile ?  '45px' : '80px'} width={isMobile ? '256px' : '627px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>Анимация логотипа</Title>
-                <Description mt={isMobile ? 5 : 10} lineHeight={isMobile ?  '20px' : ''} fontSize={isMobile ? '12' : ''}>
+                <Title lineHeight={isMobile ? '45px' : '80px'} width={isMobile ? '256px' : '627px'}
+                       fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>Анимация логотипа</Title>
+                <Description mt={isMobile ? 5 : 10} lineHeight={isMobile ? '20px' : ''} fontSize={isMobile ? '12' : ''}>
                     Строительная компания СК Салам
                 </Description>
             </Box>
-            <Box display='flex' justifyContent='center' alignContent='end' position='absolute' bottom={10} left={'47%'}>
-                <KeyboardArrowDownIcon fontSize={'large'} sx={{ color: 'white' }}/>
-            </Box>
+            {
+                isMobile &&
+                <Box display='flex' justifyContent='center' alignContent='end' position='absolute' bottom={10}
+                     left={'47%'}>
+                    <KeyboardArrowDownIcon fontSize={'large'} sx={{color: 'white'}}/>
+                </Box>}
         </CustomContainer>
     );
 };

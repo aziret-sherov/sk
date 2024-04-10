@@ -27,7 +27,7 @@ const References = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <CustomContainer background={'#FFFFFF'}>
-            <Title lineHeight={isMobile ?  '45px' : '80px'} width={isMobile ? '256px' : '627px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
+            <Title lineHeight={isMobile ?  '45px' : '80px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
                 Преимущества
             </Title>
             <Grid container={!isMobile} mt={5} spacing={6} display={"flex"} flexDirection={ isMobile ? "column" : "row"}>
