@@ -18,7 +18,7 @@ interface props {
 }
 
 const CustomContainer = ({background, children}: props) => {
-    return <StyledContainer background={background}>{children}</StyledContainer>;
+    return <StyledContainer maxWidth={false} background={background}>{children}</StyledContainer>;
 };
 
 export default CustomContainer;
