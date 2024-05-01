@@ -25,16 +25,14 @@ const StyledButton = styled.div`
     text-align: left;
 
 `;
-const Objects = () => {
+const ComplitedObjects = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
             <Title lineHeight={isMobile ?  '45px' : '80px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
-                Cтроящиеся объекты
+                Завершённые объекты
             </Title>
-            <CustomCarusel/>
-            <CustomCarusel/>
             <CustomCarusel/>
             <Grid container mt={5} mb={5}>
                 <Grid item xs={12} justifyContent={'center'} display={"flex"}>
@@ -48,4 +46,4 @@ const Objects = () => {
     );
 };
 
-export default Objects;
+export default ComplitedObjects;
