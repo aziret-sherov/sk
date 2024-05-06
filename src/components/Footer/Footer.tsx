@@ -1,7 +1,8 @@
 import CustomContainer from "../CustomContainer/CustomContainer.tsx";
 import backgroundImage from "../../assets/FooterBackground.png";
-import {Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
+import {Box, Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
 import styled from "styled-components";
+import logoImage from '../../assets/FooterLogo.png';
 
 const Title = styled(Typography)`
     font-size: 108px;
@@ -16,6 +17,7 @@ const Footer = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <CustomContainer
+            height={''}
         >
             <Grid container>
                 <Grid item xs={12}>
@@ -25,21 +27,56 @@ const Footer = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container>
-                        <Grid item xs={4}>
-                            <Title lineHeight={'45px'} fontFamily={"DIN Condensed"} fontSize={'56px'}>
-                                Отдел продаж
-                            </Title>
+                        <Grid item xs={8}>
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Title fontFamily={"DIN Condensed"} fontSize={'36px'}>
+                                        Отдел продаж
+                                    </Title>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'}>
+                                        Понедельник - Пятница
+                                    </Title>
+                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
+                                        9:00 - 19:00
+                                    </Title>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'}>
+                                        Понедельник - Пятница
+                                    </Title>
+                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
+                                        9:00 - 19:00
+                                    </Title>
+                                </Grid>
+                            </Grid>
                         </Grid>
                         <Grid item xs={4}>
-                            <Title lineHeight={'45px'} fontFamily={"DIN Condensed"} fontSize={'56px'}>
-                                Касса
-                            </Title>
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Title lineHeight={'45px'} fontFamily={"DIN Condensed"} fontSize={'56px'}>
+                                        Касса
+                                    </Title>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'}>
+                                        Понедельник - Пятница
+                                    </Title>
+                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
+                                        9:00 - 19:00
+                                    </Title>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
+                    <Box component="img" sx={{ flexGrow: 1 }} src={logoImage} alt="Logo" style={{maxHeight: '50px'}}/>
+                </Grid>
+                <Grid item xs={12} >
                     <CustomContainer
-                        height=''
+                        height='175px'
                         backgroundImage={`url(${backgroundImage})`}
                     />
                 </Grid>

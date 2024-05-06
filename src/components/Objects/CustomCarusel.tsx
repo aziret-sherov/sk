@@ -73,15 +73,17 @@ const CustomCarusel = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <Grid container mt={5}>
-            <Grid item xs={1}>
+            {!isMobile && <Grid item xs={1}>
                 {
                     mocArray.map((number, index) =>
-                        <StyledNumbers key={index} fontFamily={"DIN Condensed"} fontSize={number === 2 ? '48px' : '40px'} fontWeight={700} hovered={number === 2} lineHeight={1}>
+                        <StyledNumbers key={index} fontFamily={"DIN Condensed"}
+                                       fontSize={number === 2 ? '48px' : '40px'} fontWeight={700} hovered={number === 2}
+                                       lineHeight={1}>
                             №{number}
                         </StyledNumbers>
                     )
                 }
-            </Grid>
+            </Grid>}
             <Grid item xs={11}>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}>
                     <Grid container>
@@ -102,7 +104,7 @@ const CustomCarusel = () => {
                     </Grid>
                 </Grid>
                 <Carousel
-                    NextIcon={<ArrowForwardIosIcon/>}
+                    NextIcon={<ArrowForwardIosIcon />}
                     PrevIcon={<ArrowBackIosIcon />}
                     navButtonsAlwaysVisible
                     height={'600px'}

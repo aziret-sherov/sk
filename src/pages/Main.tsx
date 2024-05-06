@@ -5,6 +5,7 @@ import Objects from "../components/Objects/Objects.tsx";
 import ContactForm from "../components/ContactForm.tsx";
 import Contacts from "../components/Contacts/Contacts.tsx";
 import Footer from "../components/Footer/Footer.tsx";
+import ComplitedObjects from "../components/ComplitedObjects/ComplitedObjects.tsx";
 
 const Main = () => {
     return (
@@ -14,6 +15,7 @@ const Main = () => {
             <References/>
             <Objects/>
             <ContactForm/>
+            <ComplitedObjects/>
             <Contacts/>
             <Footer/>
         </>

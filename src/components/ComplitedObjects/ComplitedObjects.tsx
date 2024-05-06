@@ -1,7 +1,7 @@
 import CustomContainer from "../CustomContainer/CustomContainer.tsx";
 import styled from "styled-components";
 import {Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
-import CustomCarusel from "./CustomCarusel.tsx";
+import Carusel from "./components/Carusel.tsx";
 
 const Title = styled(Typography)`
     font-size: 108px;
@@ -30,18 +30,19 @@ const ComplitedObjects = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
-            <Title lineHeight={isMobile ?  '45px' : '80px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
+            <Title lineHeight={isMobile ?  '45px' : '80px'} mt={4} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
                 Завершённые объекты
             </Title>
-            <CustomCarusel/>
             <Grid container mt={5} mb={5}>
-                <Grid item xs={12} justifyContent={'center'} display={"flex"}>
+                <Grid item xs={12}>
+                    <Carusel/>
+                </Grid>
+                <Grid item xs={12} mt={5} justifyContent={'center'} display={"flex"}>
                     <StyledButton>
                         посмотреть все объекты
                     </StyledButton>
                 </Grid>
             </Grid>
-
         </CustomContainer>
     );
 };
