@@ -64,12 +64,12 @@ const Carusel = () => {
             >
                 {
                     mocItems.map((item) => (
-                        <div style={{height: isMobile ? '500px' : '100%', width: '100%', display: 'flex', justifyContent: 'center'}}>
+                        <div style={{height:  '100%', width: '100%', display: 'flex', justifyContent: 'center'}}>
                             <Card style={{marginRight: 20}}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
-                                        height="600"
+                                        height={isMobile ? '500px' : "600"}
                                         image={item.image}
                                     />
                                     <CardContent

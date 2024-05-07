@@ -27,14 +27,14 @@ const Footer = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container>
-                        <Grid item xs={8}>
+                        <Grid item xs={ isMobile ? 12 : 8} mt={isMobile ? 5 : 0}>
                             <Grid container>
                                 <Grid item xs={12}>
                                     <Title fontFamily={"DIN Condensed"} fontSize={'36px'}>
                                         Отдел продаж
                                     </Title>
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={isMobile ? 12 :6}>
                                     <Title  fontFamily={"DIN Condensed"} fontSize={'20px'}>
                                         Понедельник - Пятница
                                     </Title>
@@ -42,7 +42,7 @@ const Footer = () => {
                                         9:00 - 19:00
                                     </Title>
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={isMobile ? 12 :6}>
                                     <Title  fontFamily={"DIN Condensed"} fontSize={'20px'}>
                                         Понедельник - Пятница
                                     </Title>
@@ -52,7 +52,7 @@ const Footer = () => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={ isMobile ? 12 : 4} mt={isMobile ? 5 : 0}>
                             <Grid container>
                                 <Grid item xs={12}>
                                     <Title lineHeight={'45px'} fontFamily={"DIN Condensed"} fontSize={'56px'}>
@@ -71,10 +71,10 @@ const Footer = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} mt={isMobile ? 10 : 0}>
                     <Box component="img" sx={{ flexGrow: 1 }} src={logoImage} alt="Logo" style={{maxHeight: '50px'}}/>
                 </Grid>
-                <Grid item xs={12} >
+                <Grid item xs={12}>
                     <CustomContainer
                         height='175px'
                         backgroundImage={`url(${backgroundImage})`}

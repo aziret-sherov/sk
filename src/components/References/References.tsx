@@ -26,7 +26,7 @@ const References = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
-        <CustomContainer background={'#FFFFFF'}>
+        <CustomContainer background={'#FFFFFF'} height={''}>
             <Title lineHeight={isMobile ?  '45px' : '80px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
                 Преимущества
             </Title>
@@ -34,13 +34,13 @@ const References = () => {
                 <Grid item xs={4}>
                     <Item sx={{boxShadow: 'none', background: 'black'}}/>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} mt={isMobile ? 2 : ''}>
                     <Item sx={{boxShadow: 'none', background: 'black'}}/>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} mt={isMobile ? 2 : ''}>
                     <Item sx={{boxShadow: 'none', background: 'black'}}/>
                 </Grid>
-                <Grid item xs={12} display={'flex'} justifyContent={'center'}>
+                <Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>
                     <StyledButton>
                         Подробнее
                     </StyledButton>

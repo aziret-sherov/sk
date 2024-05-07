@@ -1,10 +1,18 @@
-import { Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
+import {
+    Box,
+    Card,
+    CardActionArea,
+    CardMedia,
+    Grid,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 import styled from "styled-components";
-import Carousel from "react-material-ui-carousel";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import SwipeableViews from 'react-swipeable-views';
 import logoImage from '../../assets/mocImage.png';
 import pinImage from '../../assets/pin.svg';
+import {useState} from "react";
 
 const mocArray = [1,2,3,4,5,6,7]
 const mocItems = [
@@ -39,13 +47,6 @@ const StyledNumbers = styled(Typography)<{ hovered: boolean }>`
     color: ${({ hovered }) => (hovered ? `#008E39` : `#CCCCCC`)};
 `;
 
-
-const StyledImage = styled.img`
-    width: 100%;
-    height: 100%;
-`;
-
-
 const StyledButton = styled.div`
     background:#008E39; 
     color: white;
@@ -71,6 +72,10 @@ const Title = styled(Typography)`
 const CustomCarusel = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const [slideIndex, setSlideIndex] = useState<number>(0)
+    const onChangeIndex = (index: number)=>{
+        setSlideIndex(index)
+    }
     return (
         <Grid container mt={5}>
             {!isMobile && <Grid item xs={1}>
@@ -84,18 +89,19 @@ const CustomCarusel = () => {
                     )
                 }
             </Grid>}
-            <Grid item xs={11}>
+            <Grid item xs={ isMobile ? 12 : 11}>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}>
                     <Grid container>
                         <Grid item xs={6}>
                             <Subtitle variant='body1' fontFamily={'Geologica, serif'}>
                                 Жилой комплекс
                             </Subtitle>
-                            <Title fontFamily={"DIN Condensed"} lineHeight={'64px'} fontSize={'64px'} mt={1}>
+                            <Title fontFamily={"DIN Condensed"} lineHeight={'64px'}
+                                   fontSize={isMobile ? '36px' : '64px'} mt={1}>
                                 ОБЪЕКТ №1
                             </Title>
                         </Grid>
-                        <Grid item xs={6} display='flex' alignItems={'end'} pb={2}>
+                        <Grid item xs={isMobile ? 8 : 6} display='flex' alignItems={'end'} pb={2}>
                             <img src={pinImage} width={24} height={24} alt="address"/>
                             <Subtitle variant='body1' fontFamily={'Geologica, serif'} ml={1}>
                                 ул. Кулатова, 123а
@@ -103,22 +109,35 @@ const CustomCarusel = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Carousel
-                    NextIcon={<ArrowForwardIosIcon />}
-                    PrevIcon={<ArrowBackIosIcon />}
-                    navButtonsAlwaysVisible
-                    height={'600px'}
-                    animation={'slide'}
-                    swipe={isMobile}
-                    autoPlay={false}
-                    IndicatorIcon={!isMobile ? <></> : undefined}
-                >
-                    {
-                        mocItems.map((item, index) => (
-                            <StyledImage src={item.image} key={index}/>
-                        ))
-                    }
-                </Carousel>
+                <div style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}>
+                    <Box display={'flex'} alignItems={'center'}>
+                        <SwipeableViews
+                            style={{padding: '0', margin: 0,}}
+                            slideStyle={{padding: '0', margin: 0, width: '85%', marginRight: 20}}
+                            enableMouseEvents
+                            onChangeIndex={onChangeIndex}
+                            index={slideIndex}
+                        >
+                            {
+                                mocItems.map((item) => (
+                                    <Card>
+                                        <CardActionArea>
+                                            <CardMedia
+                                                component="img"
+                                                height={ isMobile ? '500' : "600"}
+                                                image={item.image}
+                                            />
+                                        </CardActionArea>
+                                    </Card>
+                                ))
+                            }
+                        </SwipeableViews>
+                    </Box>
+                </div>
             </Grid>
             <Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>
                 <StyledButton>

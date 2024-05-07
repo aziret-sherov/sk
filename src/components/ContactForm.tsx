@@ -1,8 +1,8 @@
 import CustomContainer from "./CustomContainer/CustomContainer.tsx";
 import {
-    Box, Button,
-    Input,
-    InputLabel,
+    Box,
+    Button, Grid,
+    InputLabel, TextField,
     Typography,
     useMediaQuery,
     useTheme
@@ -28,53 +28,69 @@ const ContactForm = () => {
             height="500px"
             backgroundImage={`url(${backgroundImage})`}
         >
-            <Box display={'flex'} justifyContent={'start'} alignItems={"start"} flexDirection={'column'}>
-                <Title
-                    lineHeight={isMobile ? '45px' : '80px'}
-                    fontFamily={"DIN Condensed"}
-                    fontSize={isMobile ? '56px' : '108px'}
-                    ml={5}
-                    mb={5}
-                >
-                    Получить консультацию
-                </Title>
-                <Box
-                    component="form"
-                    width={"100%"}
-                    display={"flex"}
-                    justifyContent={"center"}
-                >
-                    <Box
-                        display={"flex"}
-                        justifyContent={"start"}
-                        width={"70%"}
+            <Grid container>
+                <Grid item xs={12}>
+                    <Title
+                        lineHeight={isMobile ? '45px' : '80px'}
+                        fontFamily={"DIN Condensed"}
+                        fontSize={isMobile ? '56px' : '108px'}
+                        ml={5}
+                        mb={5}
                     >
-                        <Box
-                            width={"50%"}
-                        >
-                                <InputLabel htmlFor="component-simple" style={{color: 'white'}} >Ваше имя</InputLabel>
-                                <Input fullWidth id="component-simple" placeholder={'Ваше имя'} style={{background: 'white'}}/>
-                        </Box>
-                        <Box
-                            width={"50%"}
-                            ml={2}
-                        >
-                                <InputLabel htmlFor="component-simple" style={{color: 'white'}}>Name</InputLabel>
-                                <Input fullWidth id="component-simple" placeholder={'Ваше имя'} style={{background: 'white'}}/>
-                        </Box>
-                        <Box
-                            width={"30%"}
-                            ml={2}
-                            display={"flex"}
-                            alignItems={'end'}
-                        >
-                            <Button variant={"contained"} color={"success"} fullWidth>
-                                отправить
-                            </Button>
-                        </Box>
-                    </Box>
-                </Box>
-            </Box>
+                        Получить консультацию
+                    </Title>
+                </Grid>
+                <Grid item xs={12}>
+                    <Grid container>
+                        <Grid item xs={isMobile ? 12 : 5}>
+                            <Box p={2}>
+                                <InputLabel htmlFor="component-simple" style={{color: 'white'}}>Ваше имя</InputLabel>
+                                <TextField
+                                    variant="outlined"
+                                    id="component-simple"
+                                    placeholder={'Ваше имя'}
+                                    style={{
+                                        borderRadius: '5px'
+                                    }}
+                                    inputProps={{
+                                        style: {
+                                            border: "none",
+                                            background: 'white'
+                                        }
+                                    }}
+                                    fullWidth
+                                />
+                            </Box>
+                        </Grid>
+                        <Grid item xs={isMobile ? 12 : 5}>
+                            <Box p={2}>
+                                <InputLabel htmlFor="component-simple" style={{color: 'white'}}>Ваш телефон</InputLabel>
+                                <TextField
+                                    variant="outlined"
+                                    id="component-simple"
+                                    placeholder={'0 (990) 90 90 90'}
+                                    style={{
+                                        borderRadius: '5px'
+                                    }}
+                                    inputProps={{
+                                        style: {
+                                            border: "none",
+                                            background: 'white'
+                                        }
+                                    }}
+                                    fullWidth
+                                />
+
+                            </Box>
+                        </Grid>
+                        <Grid item xs={isMobile ? 12 : 2}>
+                                <Button variant={"contained"} color={"success"} fullWidth style={{marginTop: isMobile ? 0 : 45}}>
+                                    отправить
+                                </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
         </CustomContainer>
     );
 };

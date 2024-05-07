@@ -1,5 +1,5 @@
 import CustomContainer from "../CustomContainer/CustomContainer.tsx";
-import {Box, Button, Grid, Typography} from "@mui/material";
+import {Box, Button, Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
 import megaImage from '../../assets/MEGA-logo.png';
 import oImage from '../../assets/Лого_О!_НУР_Телеком.png';
 import beelineImage from '../../assets/Beeline_logo_2021.png';
@@ -14,11 +14,13 @@ const Title = styled(Typography)`
 `;
 
 const Contacts = () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
             <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={isMobile ? 12 : 4}>
                     <Grid container gap={1}>
                         <Grid item xs={12}>
                             <Title lineHeight={ '45px'} fontFamily={"DIN Condensed"} fontSize={ '56px'}>
@@ -44,7 +46,7 @@ const Contacts = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={isMobile ? 12 :8} mt={ isMobile ? 5 : 0}>
                     <Box height={600} sx={{backgroundColor: '#DCDCDC', borderRadius: '4px'}}>
 
                     </Box>
@@ -52,10 +54,9 @@ const Contacts = () => {
             </Grid>
             <Grid item xs={12} mt={4} justifyContent={"center"} display={"flex"}>
                 <Box
-                    width={"30%"}
-                    ml={2}
                     display={"flex"}
                     alignItems={'end'}
+                    ml={2}
                     mb={5}
                 >
                     <Button variant={"contained"} color={"success"} fullWidth>
