@@ -1,10 +1,17 @@
 import CustomContainer from "../CustomContainer/CustomContainer.tsx";
 import {Box, Button, Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
-import megaImage from '../../assets/MEGA-logo.png';
-import oImage from '../../assets/Лого_О!_НУР_Телеком.png';
-import beelineImage from '../../assets/Beeline_logo_2021.png';
 import pinImage from '../../assets/pin.svg';
 import styled from "styled-components";
+import {useEffect, useState} from "react";
+import axiosInstance from "../../axios.ts";
+import {ApiPaths} from "../../apiPath.ts";
+
+export interface IContact {
+    icon: string;
+    id: number;
+    number: string;
+    type: string;
+}
 
 const Title = styled(Typography)`
     font-size: 108px;
@@ -16,6 +23,35 @@ const Title = styled(Typography)`
 const Contacts = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const [contacts, setContacts] = useState<IContact[]>([]);
+    const [addresses, setAddresses] = useState([])
+
+    const fetchData = async () => {
+        try {
+            const response = await axiosInstance.get(ApiPaths.contacts);
+            setContacts(response.data.results)
+        } catch (error) {
+            console.error('Error fetching data', error);
+            throw error;
+        }
+    }
+
+    const fetchAddresses = async () => {
+        try {
+            const response = await axiosInstance.get(ApiPaths.address);
+            setAddresses(response.data.results)
+        } catch (error) {
+            console.error('Error fetching addresses', error);
+            throw error;
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+        fetchAddresses()
+    }, []);
+
+    console.log('test', contacts)
 
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
@@ -23,30 +59,29 @@ const Contacts = () => {
                 <Grid item xs={isMobile ? 12 : 4}>
                     <Grid container gap={1}>
                         <Grid item xs={12}>
-                            <Title lineHeight={ '45px'} fontFamily={"DIN Condensed"} fontSize={ '56px'}>
-                                Контакты
+                            <Title lineHeight={'45px'} fontFamily={"DIN Condensed"} fontSize={'56px'}>
+                                Контакт
                             </Title>
                         </Grid>
-                        <Grid display={'flex'} item xs={12}>
-                            <Box height={25} component={'img'} src={megaImage}/>
-                            <Typography ml={2}>0223 130 130</Typography>
-                        </Grid>
-                        <Grid display={'flex'} item xs={12}>
-                            <Box height={25} component={'img'} src={oImage}/>
-                            <Typography ml={2}>0223 130 130</Typography>
-                        </Grid>
-                        <Grid display={'flex'} item xs={12}>
-                            <Box height={25} component={'img'} src={beelineImage}/>
-                            <Typography ml={2}>0223 130 130</Typography>
-                        </Grid>
-                        <Grid display={'flex'} item xs={12}>
-                            <Box height={25} component={'img'} src={pinImage}/>
-                            <Typography ml={2}>Головной офис:
-                                ул. Токмокская 75</Typography>
-                        </Grid>
+                        {
+                            contacts.map((contact)=>
+                                <Grid display={'flex'} item xs={12}>
+                                    <Box height={25} component={'img'} src={contact.icon}/>
+                                    <Typography ml={2}>{contact.number}</Typography>
+                                </Grid>
+                            )
+                        }
+                        {
+                            addresses.map((address)=>
+                                <Grid display={'flex'} item xs={12}>
+                                    <Box height={25} component={'img'} src={pinImage}/>
+                                    <Typography ml={2}>{address}</Typography>
+                                </Grid>
+                            )
+                        }
                     </Grid>
                 </Grid>
-                <Grid item xs={isMobile ? 12 :8} mt={ isMobile ? 5 : 0}>
+                <Grid item xs={isMobile ? 12 : 8} mt={isMobile ? 5 : 0}>
                     <Box height={600} sx={{backgroundColor: '#DCDCDC', borderRadius: '4px'}}>
 
                     </Box>

@@ -14,6 +14,7 @@ import {
     useTheme
 } from "@mui/material";
 import {useState} from "react";
+import {IObject} from "../../Objects/Objects.tsx";
 
 const mocItems = [
     {
@@ -43,7 +44,7 @@ const mocItems = [
     }
 ];
 
-const Carusel = () => {
+const Carusel = ({objects}:{objects: IObject[]}) => {
     const [slideIndex, setSlideIndex] = useState<number>(0)
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -63,14 +64,14 @@ const Carusel = () => {
                 index={slideIndex}
             >
                 {
-                    mocItems.map((item) => (
+                    objects.map((item, index) => (
                         <div style={{height:  '100%', width: '100%', display: 'flex', justifyContent: 'center'}}>
                             <Card style={{marginRight: 20}}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
                                         height={isMobile ? '500px' : "600"}
-                                        image={item.image}
+                                        image={item.construction_projects_images[0].image || ''}
                                     />
                                     <CardContent
                                         style={{
@@ -80,7 +81,7 @@ const Carusel = () => {
                                         }}>
                                         <Box>
                                             <Typography gutterBottom variant="h5" component="div">
-                                                {item.name}
+                                                {item.title}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
                                                 {item.description}
@@ -95,12 +96,12 @@ const Carusel = () => {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                            {!isMobile && <Card>
+                            {!isMobile && objects[index + 1] && <Card>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
                                         height="600"
-                                        image={item.image}
+                                        image={item.construction_projects_images[0].image || ''}
                                     />
                                     <CardContent
                                         style={{
@@ -110,7 +111,7 @@ const Carusel = () => {
                                         }}>
                                         <Box>
                                             <Typography gutterBottom variant="h5" component="div">
-                                                {item.name}
+                                                {item.title}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
                                                 {item.description}

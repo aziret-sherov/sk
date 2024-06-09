@@ -2,6 +2,9 @@ import CustomContainer from "../CustomContainer/CustomContainer.tsx";
 import styled from "styled-components";
 import {Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
 import CustomCarusel from "./CustomCarusel.tsx";
+import {useEffect, useState} from "react";
+import axiosInstance from "../../axios.ts";
+import {ApiPaths} from "../../apiPath.ts";
 
 const Title = styled(Typography)`
     font-size: 108px;
@@ -23,19 +26,47 @@ const StyledButton = styled.div`
     font-weight: 500;
     line-height: 24px;
     text-align: left;
-
 `;
+
+export interface IObject {
+    id: number,
+    construction_projects_images: {
+        id: number;
+        image: string;
+    }[],
+    about_construction_projects: [],
+    title: string,
+    description: string,
+    address: string
+}
+
 const Objects = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const [objects, setObjects] = useState<IObject[]>([])
+
+    const fetchData = async () => {
+        try {
+            const response = await axiosInstance.get(ApiPaths.construction_projects);
+            setObjects(response.data.results)
+        } catch (error) {
+            console.error('Error fetching data', error);
+            throw error;
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, []);
+
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
             <Title lineHeight={isMobile ?  '45px' : '80px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
                 Cтроящиеся объекты
             </Title>
-            <CustomCarusel/>
-            <CustomCarusel/>
-            <CustomCarusel/>
+            {
+                objects.map(object=>(<CustomCarusel object={object} objects={objects}/>))
+            }
             <Grid container mt={5} mb={5}>
                 <Grid item xs={12} justifyContent={'center'} display={"flex"}>
                     <StyledButton>

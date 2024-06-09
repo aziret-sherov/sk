@@ -10,38 +10,9 @@ import {
 } from "@mui/material";
 import styled from "styled-components";
 import SwipeableViews from 'react-swipeable-views';
-import logoImage from '../../assets/mocImage.png';
 import pinImage from '../../assets/pin.svg';
 import {useState} from "react";
-
-const mocArray = [1,2,3,4,5,6,7]
-const mocItems = [
-    {
-        name: "Random Name #1",
-        description: "Probably the most random thing you have ever seen!",
-        image: logoImage
-    },
-    {
-        name: "Random Name #2",
-        description: "Hello World!",
-        image: logoImage
-    },
-    {
-        name: "Random Name #3",
-        description: "Hello World!",
-        image: logoImage
-    },
-    {
-        name: "Random Name #4",
-        description: "Hello World!",
-        image: logoImage
-    },
-    {
-        name: "Random Name #5",
-        description: "Hello World!",
-        image: logoImage
-    }
-]
+import {IObject} from "./Objects.tsx";
 
 const StyledNumbers = styled(Typography)<{ hovered: boolean }>`
     color: ${({ hovered }) => (hovered ? `#008E39` : `#CCCCCC`)};
@@ -69,7 +40,7 @@ const Title = styled(Typography)`
     text-align: left;
 `;
 
-const CustomCarusel = () => {
+const CustomCarusel = ({object, objects}: {object: IObject; objects?: IObject[]}) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [slideIndex, setSlideIndex] = useState<number>(0)
@@ -80,11 +51,13 @@ const CustomCarusel = () => {
         <Grid container mt={5}>
             {!isMobile && <Grid item xs={1}>
                 {
-                    mocArray.map((number, index) =>
+                    objects?.map((obj, index) =>
                         <StyledNumbers key={index} fontFamily={"DIN Condensed"}
-                                       fontSize={number === 2 ? '48px' : '40px'} fontWeight={700} hovered={number === 2}
+                                       fontSize={index === 2 ? '48px' : '40px'}
+                                       fontWeight={700}
+                                       hovered={obj === object}
                                        lineHeight={1}>
-                            №{number}
+                            №{index+1}
                         </StyledNumbers>
                     )
                 }
@@ -98,13 +71,13 @@ const CustomCarusel = () => {
                             </Subtitle>
                             <Title fontFamily={"DIN Condensed"} lineHeight={'64px'}
                                    fontSize={isMobile ? '36px' : '64px'} mt={1}>
-                                ОБЪЕКТ №1
+                                {object.title}
                             </Title>
                         </Grid>
                         <Grid item xs={isMobile ? 8 : 6} display='flex' alignItems={'end'} pb={2}>
                             <img src={pinImage} width={24} height={24} alt="address"/>
                             <Subtitle variant='body1' fontFamily={'Geologica, serif'} ml={1}>
-                                ул. Кулатова, 123а
+                                {object.address}
                             </Subtitle>
                         </Grid>
                     </Grid>
@@ -123,7 +96,7 @@ const CustomCarusel = () => {
                             index={slideIndex}
                         >
                             {
-                                mocItems.map((item) => (
+                                object.construction_projects_images.map((item) => (
                                     <Card>
                                         <CardActionArea>
                                             <CardMedia
