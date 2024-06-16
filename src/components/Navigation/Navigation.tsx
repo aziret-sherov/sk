@@ -14,6 +14,7 @@ import {useState} from "react";
 import logoImage from '../../assets/nav-logo.png';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from "styled-components";
+import {useNavigate} from "react-router-dom";
 
 const StyledNavButton = styled(Button)`
     font-weight: 600;
@@ -36,6 +37,7 @@ const Navigation = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleDrawerOpen = () => {
         setDrawerOpen(true);
@@ -88,7 +90,9 @@ const Navigation = () => {
                     </>
                 ) : (
                     <>
-                        <StyledNavButton color="inherit">ОБЪЕКТЫ</StyledNavButton>
+                        <StyledNavButton onClick={()=>{
+                            navigate('/object');
+                        }} color="inherit">ОБЪЕКТЫ</StyledNavButton>
                         <StyledNavButton color="inherit">О КОМПАНИИ</StyledNavButton>
                         <StyledNavButton color="inherit">КОНТАКТЫ</StyledNavButton>
                     </>

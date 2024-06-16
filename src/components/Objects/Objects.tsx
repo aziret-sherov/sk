@@ -62,7 +62,7 @@ const Objects = () => {
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
             <Title lineHeight={isMobile ?  '45px' : '80px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
-                Cтроящиеся объекты
+                Строящиеся объекты
             </Title>
             {
                 objects.map(object=>(<CustomCarusel object={object} objects={objects}/>))
