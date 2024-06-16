@@ -66,7 +66,7 @@ const Carusel = ({objects}:{objects: IObject[]}) => {
                 {
                     objects.map((item, index) => (
                         <div style={{height:  '100%', width: '100%', display: 'flex', justifyContent: 'center'}}>
-                            <Card style={{marginRight: 20}}>
+                            <Card style={{marginRight: 20, boxShadow: 'none'}}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
@@ -96,7 +96,7 @@ const Carusel = ({objects}:{objects: IObject[]}) => {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                            {!isMobile && objects[index + 1] && <Card>
+                            {!isMobile && objects[index + 1] && <Card sx={{ boxShadow: 'none'}}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"

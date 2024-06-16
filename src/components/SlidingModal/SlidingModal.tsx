@@ -1,5 +1,4 @@
 import {CloseIcon, Content, ModalContent, ModalOverlay, Navbar} from "./styles.ts";
-import {NavLink} from "../Navigation/styles.ts";
 
 interface Props {
   onClose: () => void;
@@ -14,9 +13,9 @@ const SlidingModal = ({ onClose }: Props) => {
             <CloseIcon onClick={onClose} />
           </Navbar>
           <Content>
-              <NavLink href="#">Объекты</NavLink>
-              <NavLink href="#">О компании</NavLink>
-              <NavLink href="#">Контакты</NavLink>
+              {/*<NavLink href="#">Объекты</NavLink>*/}
+              {/*<NavLink href="#">О компании</NavLink>*/}
+              {/*<NavLink href="#">Контакты</NavLink>*/}
           </Content>
         </ModalContent>
       </ModalOverlay>

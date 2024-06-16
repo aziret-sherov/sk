@@ -54,7 +54,9 @@ const References = () => {
                 {
                     references.map((reference) => (
                             <Grid item xs={4}>
-                                <Item sx={{boxShadow: 'none', backgroundImage: `url(${reference.image_url})`}}/>
+                                <Item>
+                                    <img width="100%" src={reference.image_url} alt={reference.image_url}/>
+                                </Item>
                             </Grid>
                         )
                     )

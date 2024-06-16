@@ -5,4 +5,5 @@ export const ApiPaths = {
     consultation_form: 'content/consultation_form/',
     completed_projects: 'content/completed_projects/',
     address: 'info/address/',
+    news: 'content/news/',
 }

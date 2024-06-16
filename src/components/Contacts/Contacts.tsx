@@ -51,8 +51,6 @@ const Contacts = () => {
         fetchAddresses()
     }, []);
 
-    console.log('test', contacts)
-
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
             <Grid container>

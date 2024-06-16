@@ -1,11 +1,10 @@
-import CustomContainer from "../CustomContainer/CustomContainer.tsx";
-import styled from "styled-components";
 import {Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
-import Carusel from "./components/Carusel.tsx";
+import CustomContainer from "../CustomContainer/CustomContainer.tsx";
 import {useEffect, useState} from "react";
 import axiosInstance from "../../axios.ts";
 import {ApiPaths} from "../../apiPath.ts";
-import {IObject} from "../Objects/Objects.tsx";
+import styled from "styled-components";
+import NewsCarusel from "./NewsCarusel.tsx";
 
 const Title = styled(Typography)`
     font-size: 108px;
@@ -29,14 +28,22 @@ const StyledButton = styled.div`
     text-align: left;
 `;
 
-const ComplitedObjects = () => {
+export interface INew {
+    description: string;
+    id: number
+    image_url: string
+    news_date: string
+    title: string
+}
+
+const News = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const [objects, setObjects] = useState<IObject[]>([])
+    const [objects, setObjects] = useState<INew[]>([])
 
     const fetchData = async () => {
         try {
-            const response = await axiosInstance.get(ApiPaths.construction_projects);
+            const response = await axiosInstance.get(ApiPaths.news);
             setObjects(response.data.results)
         } catch (error) {
             console.error('Error fetching data', error);
@@ -51,15 +58,15 @@ const ComplitedObjects = () => {
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
             <Title lineHeight={isMobile ?  '45px' : '80px'} mt={4} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
-                Завершённые объекты
+                Новости
             </Title>
             <Grid container mt={5} mb={5}>
                 <Grid item xs={12}>
-                    <Carusel objects={objects}/>
+                    <NewsCarusel objects={objects}/>
                 </Grid>
                 <Grid item xs={12} mt={5} justifyContent={'center'} display={"flex"}>
                     <StyledButton>
-                        посмотреть все объекты
+                        все новости
                     </StyledButton>
                 </Grid>
             </Grid>
@@ -67,4 +74,4 @@ const ComplitedObjects = () => {
     );
 };
 
-export default ComplitedObjects;
+export default News;
