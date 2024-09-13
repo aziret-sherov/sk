@@ -16,6 +16,7 @@ import {useState} from "react";
 import {IObject} from "./Objects.tsx";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import backgroundImage from "../../assets/testImg.png";
 
 const StyledNumbers = styled(Typography)<{ hovered: boolean }>`
     color: ${({hovered}) => (hovered ? `#008E39` : `#CCCCCC`)};
@@ -126,17 +127,27 @@ const CustomCarusel = ({object, objects}: { object: IObject; objects?: IObject[]
                             index={slideIndex}
                         >
                             {
+                                object.construction_projects_images.length > 0 ?
                                 object.construction_projects_images.map((item, index) => (
                                     <Card key={index}>
                                         <CardActionArea>
                                             <CardMedia
                                                 component="img"
                                                 height={isMobile ? '500' : "600"}
-                                                image={item.image}
+                                                image={item.image || backgroundImage}
                                             />
                                         </CardActionArea>
                                     </Card>
                                 ))
+                                : <Card >
+                                <CardActionArea>
+                                        <CardMedia
+                                            component="img"
+                                            height={isMobile ? '500' : "600"}
+                                            image={ backgroundImage}
+                                        />
+                                        </CardActionArea>
+                                </Card>
                             }
                         </SwipeableViews>
                         <IconButton

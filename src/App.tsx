@@ -17,6 +17,7 @@ function App() {
               <Routes>
                   <Route path="/" element={<Main />} />
                   <Route path="/object" element={<ObjectDetails />} />
+                  <Route path="/object/:id" element={<ObjectDetails />} />
                   {/*<Route path="/about" element={<About />} />*/}
                   {/*<Route path="/services" element={<Services />} />*/}
                   {/*<Route path="/contact" element={<Contact />} />*/}

@@ -1,4 +1,3 @@
-import logoImage from "../../../assets/mocImage.png";
 import Arrow from '../../../assets/slider_arrow.svg';
 import RotatedArrow from '../../../assets/rotated-arrow.svg';
 import SwipeableViews from 'react-swipeable-views';
@@ -13,72 +12,77 @@ import {
     useMediaQuery,
     useTheme
 } from "@mui/material";
-import {useState} from "react";
-import {IObject} from "../../Objects/Objects.tsx";
+import { useState } from "react";
+import { IObject } from "../../Objects/Objects.tsx";
 
-const mocItems = [
-    {
-        name: "Random Name #1",
-        description: "Probably the most random thing you have ever seen!",
-        image: logoImage
-    },
-    {
-        name: "Random Name #2",
-        description: "Hello World!",
-        image: logoImage
-    },
-    {
-        name: "Random Name #3",
-        description: "Hello World!",
-        image: logoImage
-    },
-    {
-        name: "Random Name #4",
-        description: "Hello World!",
-        image: logoImage
-    },
-    {
-        name: "Random Name #5",
-        description: "Hello World!",
-        image: logoImage
-    }
-];
-
-const Carusel = ({objects}:{objects: IObject[]}) => {
-    const [slideIndex, setSlideIndex] = useState<number>(0)
+const Carusel = ({ objects }: { objects: IObject[] }) => {
+    const [slideIndex, setSlideIndex] = useState<number>(0);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const onChangeIndex = (index: number)=>{
-        setSlideIndex(index)
-    }
+
+    const onNext = () => {
+        setSlideIndex((prevIndex) => (prevIndex + 1) % Math.ceil(objects.length / 2));
+    };
+
+    const onPrev = () => {
+        setSlideIndex((prevIndex) =>
+            prevIndex === 0 ? Math.ceil(objects.length / 2) - 1 : prevIndex - 1
+        );
+    };
+
+    const onChangeIndex = (index: number) => {
+        setSlideIndex(index);
+    };
+
+    // Helper function to chunk the objects into groups of two
+    const getChunks = (arr: IObject[], size: number) => {
+        const chunks = [];
+        for (let i = 0; i < arr.length; i += size) {
+            chunks.push(arr.slice(i, i + size));
+        }
+        return chunks;
+    };
+
+    const objectPairs = isMobile ? getChunks(objects, 1) : getChunks(objects, 2);
+
     return (
-        <Box display={'flex'} alignItems={'center'} >
-            {!isMobile && <Box onClick={() => onChangeIndex(0)} mr={4}>
-                <Box height={50} component={'img'} src={RotatedArrow}/>
-            </Box>}
+        <Box display={'flex'} alignItems={'center'}>
+            {!isMobile && (
+                <Box onClick={onPrev} mr={4}>
+                    <Box height={50} component={'img'} src={RotatedArrow} />
+                </Box>
+            )}
             <SwipeableViews
-                style={{padding: '0', margin: 0,}}
-                slideStyle={{padding: '5px', margin: 0}}
+                style={{ padding: '0', margin: 0 }}
+                slideStyle={{ padding: '5px', margin: 0 }}
                 enableMouseEvents
                 onChangeIndex={onChangeIndex}
                 index={slideIndex}
             >
-                {
-                    objects.map((item, index) => (
-                        <div style={{height:  '100%', width: '100%', display: 'flex', justifyContent: 'center'}}>
-                            <Card style={{marginRight: 20, boxShadow: 'none'}}>
+                {objectPairs.map((pair, pairIndex) => (
+                    <div
+                        key={pairIndex}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%'
+                        }}
+                    >
+                        {pair.map((item, index) => (
+                            <Card key={index} style={{ marginRight: 20, boxShadow: 'none', width: isMobile ? '100%' : '45%' }}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
-                                        height={isMobile ? '500px' : "600"}
-                                        image={item.construction_projects_images[0].image || ''}
+                                        height={isMobile ? '300px' : "600"}
+                                        image={item.completed_projects_images[0].image || ''}
                                     />
                                     <CardContent
                                         style={{
                                             display: 'flex',
                                             justifyContent: 'space-between',
                                             alignItems: 'center'
-                                        }}>
+                                        }}
+                                    >
                                         <Box>
                                             <Typography gutterBottom variant="h5" component="div">
                                                 {item.title}
@@ -87,7 +91,7 @@ const Carusel = ({objects}:{objects: IObject[]}) => {
                                                 {item.description}
                                             </Typography>
                                             <Typography variant="h6" color="text.primary">
-                                                ул. Ленина 15
+                                                {item.address}
                                             </Typography>
                                         </Box>
                                         <Box>
@@ -96,43 +100,15 @@ const Carusel = ({objects}:{objects: IObject[]}) => {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                            {!isMobile && objects[index + 1] && <Card sx={{ boxShadow: 'none'}}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        component="img"
-                                        height="600"
-                                        image={item.construction_projects_images[0].image || ''}
-                                    />
-                                    <CardContent
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center'
-                                        }}>
-                                        <Box>
-                                            <Typography gutterBottom variant="h5" component="div">
-                                                {item.title}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                {item.description}
-                                            </Typography>
-                                            <Typography variant="h6" color="text.primary">
-                                                ул. Ленина 15
-                                            </Typography>
-                                        </Box>
-                                        <Box>
-                                            <Button variant={'contained'} color={"success"}>подробнее</Button>
-                                        </Box>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>}
-                        </div>
-                    ))
-                }
+                        ))}
+                    </div>
+                ))}
             </SwipeableViews>
-            {!isMobile && <Box onClick={() => onChangeIndex(mocItems.length - 1)} ml={4}>
-                <Box height={50} component={'img'} src={Arrow}/>
-            </Box>}
+            {!isMobile && (
+                <Box onClick={onNext} ml={4}>
+                    <Box height={50} component={'img'} src={Arrow} />
+                </Box>
+            )}
         </Box>
     );
 };

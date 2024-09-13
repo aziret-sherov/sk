@@ -36,7 +36,7 @@ const ComplitedObjects = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axiosInstance.get(ApiPaths.construction_projects);
+            const response = await axiosInstance.get(ApiPaths.completed_projects);
             setObjects(response.data.results)
         } catch (error) {
             console.error('Error fetching data', error);
@@ -55,7 +55,10 @@ const ComplitedObjects = () => {
             </Title>
             <Grid container mt={5} mb={5}>
                 <Grid item xs={12}>
-                    <Carusel objects={objects}/>
+                    {
+                        objects.length > 0 &&
+                        <Carusel objects={objects}/>
+                    }
                 </Grid>
                 <Grid item xs={12} mt={5} justifyContent={'center'} display={"flex"}>
                     <StyledButton>

@@ -30,6 +30,10 @@ const StyledButton = styled.div`
 
 export interface IObject {
     id: number,
+    completed_projects_images: {
+        id: number;
+        image: string;
+    }[],
     construction_projects_images: {
         id: number;
         image: string;
