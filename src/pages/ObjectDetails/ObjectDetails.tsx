@@ -1,4 +1,4 @@
-import Navigation from "../Navigation/Navigation.tsx";
+import Navigation from "../../components/Navigation/Navigation.tsx";
 import {
     Box,
     Button, Card,
@@ -11,72 +11,18 @@ import {
     useTheme
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import CustomContainer from "../CustomContainer/CustomContainer.tsx";
+import CustomContainer from "../../components/CustomContainer/CustomContainer.tsx";
 import styled from "styled-components";
 import backgroundImage from "../../assets/testImg.png";
-import Image1 from "../../assets/img1.svg";
-import Image2 from "../../assets/img2.svg";
-import Image3 from "../../assets/img3.svg";
-import Image4 from "../../assets/img4.svg";
-import Image5 from "../../assets/img5.svg";
-import Image6 from "../../assets/img6.svg";
-import Contacts from "../Contacts/Contacts.tsx";
-import Footer from "../Footer/Footer.tsx";
-import ContactForm from "../ContactForm.tsx";
+import Contacts from "../../components/Contacts/Contacts.tsx";
+import Footer from "../../components/Footer/Footer.tsx";
+import ContactForm from "../../components/ContactForm.tsx";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axiosInstance from "../../axios.ts";
 import {ApiPaths} from "../../apiPath.ts";
 import Carusel from "./Carusel.tsx";
 
-const details = [
-    {
-        icon: Image1,
-        title: 'Первая линия',
-        description: 'Жилой комплекс «N1» необычен своей архитектурой в Хай – Тек стиле.'
-    },
-    {
-        icon: Image2,
-        title: 'Качественная отделка',
-        description: 'Жилой комплекс «N1» необычен своей архитектурой в Хай – Тек стиле.'
-    },
-    {
-        icon: Image3,
-        title: 'Индивидуальные газовые котлы',
-        description: 'Жилой комплекс «N1» необычен своей архитектурой в Хай – Тек стиле.'
-    },
-    {
-        icon: Image4,
-        title: 'Благоустройство',
-        description: 'Жилой комплекс «N1» необычен своей архитектурой в Хай – Тек стиле.'
-    },
-    {
-        icon: Image5,
-        title: 'Возможность перепланировки',
-        description: 'Жилой комплекс «N1» необычен своей архитектурой в Хай – Тек стиле.'
-    },
-    {
-        icon: Image6,
-        title: 'Подземный паркинг',
-        description: 'Жилой комплекс «N1» необычен своей архитектурой в Хай – Тек стиле.'
-    }
-];
-
-
-const StyledButton = styled.div`
-    display: flex;
-    justify-content: center;
-    color: #008E39;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 2px solid #008E39;
-    width: 300px;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 24px;
-    text-align: left;
-`;
 
 const DetailItem = ({icon, title, description}: { icon: string; title: string; description: string }) => (
     <Box sx={{textAlign: 'center', padding: 4, border: 'none', borderRadius: 2, backgroundColor: '#F7F7F7'}}>
@@ -115,15 +61,36 @@ const ObjectDetails = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const params = useParams();
-    console.log('test', params)
-    const [objects, setObjects] = useState<string[]>([])
+    const [objects, setObjects] = useState(
+        {
+            id: 1,
+            completed_projects_images: [{
+                image: ''
+            }],
+            about_completed_projects: [
+                {
+                    id: 0,
+                    title: "",
+                    desc: "",
+                    icon: "",
+                    completed_projects: 0
+                }
+            ],
+            flat_completed_projects: [],
+            title: "",
+            description: "",
+            address: "",
+            lat: 0,
+            long: 0
+        }
+    )
 
 
     const fetchData = async () => {
         if (params?.id){
             try {
                 const response = await axiosInstance.get(ApiPaths.completed_projects_details(params?.id));
-                setObjects(response.data.results)
+                setObjects(response.data)
             } catch (error) {
                 console.error('Error fetching data', error);
                 throw error;
@@ -141,14 +108,18 @@ const ObjectDetails = () => {
         <>
             <Navigation/>
             <CustomContainer
-                backgroundImage={`url(${backgroundImage})`}
+                backgroundImage={`url(${objects.completed_projects_images[0].image || backgroundImage})`}
             >
                 <Box>
                     <Title lineHeight={isMobile ? '45px' : '80px'} width={isMobile ? '256px' : '827px'}
-                           fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>Жилой комплекс №1</Title>
+                           fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
+                        {
+                            objects.title
+                        }
+                    </Title>
                     <Description mt={isMobile ? 5 : 10} lineHeight={isMobile ? '20px' : ''}
                                  fontSize={isMobile ? '12' : ''}>
-                        Адрес
+                        {objects.address}
                     </Description>
                 </Box>
                 {
@@ -165,12 +136,13 @@ const ObjectDetails = () => {
                 </Title>
 
                 <Grid container spacing={3} justifyContent="center" mb={4} mt={4}>
-                    {details.map((detail, index) => (
+                    {objects.about_completed_projects.length > 0 &&
+                        objects.about_completed_projects.map((detail, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
                             <DetailItem
                                 icon={detail.icon}
                                 title={detail.title}
-                                description={detail.description}
+                                description={detail.desc}
                             />
                         </Grid>
                     ))}
@@ -184,12 +156,7 @@ const ObjectDetails = () => {
                 </Title>
                 <Grid container mt={5} mb={5}>
                     <Grid item xs={12}>
-                        <Carusel objects={objects}/>
-                    </Grid>
-                    <Grid item xs={12} mt={5} justifyContent={'center'} display={"flex"}>
-                        <StyledButton>
-                            оставить заявку
-                        </StyledButton>
+                        <Carusel objects={objects?.completed_projects_images}/>
                     </Grid>
                 </Grid>
             </CustomContainer>

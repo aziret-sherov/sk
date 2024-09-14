@@ -14,8 +14,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { IObject } from "../../Objects/Objects.tsx";
+import {useNavigate} from "react-router-dom";
 
 const Carusel = ({ objects }: { objects: IObject[] }) => {
+    const navigate = useNavigate();
     const [slideIndex, setSlideIndex] = useState<number>(0);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -34,7 +36,6 @@ const Carusel = ({ objects }: { objects: IObject[] }) => {
         setSlideIndex(index);
     };
 
-    // Helper function to chunk the objects into groups of two
     const getChunks = (arr: IObject[], size: number) => {
         const chunks = [];
         for (let i = 0; i < arr.length; i += size) {
@@ -95,7 +96,11 @@ const Carusel = ({ objects }: { objects: IObject[] }) => {
                                             </Typography>
                                         </Box>
                                         <Box>
-                                            <Button variant={'contained'} color={"success"}>подробнее</Button>
+                                            <Button
+                                                variant={'contained'}
+                                                color={"success"}
+                                                onClick={()=>navigate(`/object/${item.id}`)}
+                                            >подробнее</Button>
                                         </Box>
                                     </CardContent>
                                 </CardActionArea>

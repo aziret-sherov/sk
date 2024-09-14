@@ -57,48 +57,51 @@ const Navigation = () => {
         </List>
     );
     return (
-        <AppBar position="absolute" sx={{p: '15px', background: '#008E39'}}>
-            <Toolbar>
-                <Box component="div" sx={{ flexGrow: 1 }}>
-                    <img src={logoImage} alt="Logo" style={{maxHeight: '50px'}}/>
-                </Box>
-                {isMobile ? (
-                    <>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            onClick={handleDrawerOpen}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Drawer
-                            PaperProps={{
-                                sx: { width: "100%", background: '#008E39' },
-                            }}
-                            anchor="right"
-                            open={drawerOpen}
-                        >
-                            <ListItem sx={{ justifyContent: 'end', padding: '10px' }}>
-                                <Box component="div" sx={{ flexGrow: 1 }}>
-                                    <img src={logoImage} alt="Logo" style={{maxHeight: '40px'}}/>
-                                </Box>
-                                <CloseIcon sx={{ color: 'white' }} onClick={handleDrawerClose} fontSize="large"/>
-                            </ListItem>
-                            {list()}
-                        </Drawer>
-                    </>
-                ) : (
-                    <>
-                        <StyledNavButton onClick={()=>{
-                            navigate('/object');
-                        }} color="inherit">ОБЪЕКТЫ</StyledNavButton>
-                        <StyledNavButton color="inherit">О КОМПАНИИ</StyledNavButton>
-                        <StyledNavButton color="inherit">КОНТАКТЫ</StyledNavButton>
-                    </>
-                )}
-            </Toolbar>
-        </AppBar>
+        <>
+            <AppBar position="absolute" sx={{p: '15px', background: '#008E39', height: '80px'}}>
+                <Toolbar>
+                    <Box component="div" sx={{ flexGrow: 1 }}>
+                        <img src={logoImage} alt="Logo" style={{maxHeight: '50px'}}/>
+                    </Box>
+                    {isMobile ? (
+                        <>
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                onClick={handleDrawerOpen}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Drawer
+                                PaperProps={{
+                                    sx: { width: "100%", background: '#008E39' },
+                                }}
+                                anchor="right"
+                                open={drawerOpen}
+                            >
+                                <ListItem sx={{ justifyContent: 'end', padding: '10px' }}>
+                                    <Box component="div" sx={{ flexGrow: 1 }}>
+                                        <img src={logoImage} alt="Logo" style={{maxHeight: '40px'}}/>
+                                    </Box>
+                                    <CloseIcon sx={{ color: 'white' }} onClick={handleDrawerClose} fontSize="large"/>
+                                </ListItem>
+                                {list()}
+                            </Drawer>
+                        </>
+                    ) : (
+                        <>
+                            <StyledNavButton color="inherit">ОБЪЕКТЫ</StyledNavButton>
+                            <StyledNavButton onClick={()=>{
+                                navigate('/about');
+                            }} color="inherit">О КОМПАНИИ</StyledNavButton>
+                            <StyledNavButton color="inherit">КОНТАКТЫ</StyledNavButton>
+                        </>
+                    )}
+                </Toolbar>
+            </AppBar>
+            <Box mt='30px'/>
+        </>
     );
 };
 

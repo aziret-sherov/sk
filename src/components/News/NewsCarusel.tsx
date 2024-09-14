@@ -35,7 +35,6 @@ const NewsCarusel = ({ objects }: { objects: INew[] }) => {
 
     const groupedObjects = chunkArray(objects, isMobile ? 1 : 3);
 
-    console.log('test', groupedObjects)
     return (
         <Box display={'flex'} alignItems={'center'}>
             {!isMobile && (

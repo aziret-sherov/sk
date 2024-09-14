@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import backgroundImage from "../../assets/testImg.png";
 
-const Carusel = ({ objects }: { objects: string[] }) => {
+const Carusel = ({ objects }: { objects: { image:string }[] }) => {
     const [slideIndex, setSlideIndex] = useState<number>(0);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -21,7 +21,7 @@ const Carusel = ({ objects }: { objects: string[] }) => {
         setSlideIndex((index + groupedObjects.length) % groupedObjects.length);
     };
 
-    const chunkArray = (array: string[], size: number) => {
+    const chunkArray = (array: { image:string }[], size: number) => {
         const chunkedArray = [];
         for (let i = 0; i < array.length; i += size) {
             chunkedArray.push(array.slice(i, i + size));
@@ -29,9 +29,8 @@ const Carusel = ({ objects }: { objects: string[] }) => {
         return chunkedArray;
     };
 
-    const groupedObjects = chunkArray(objects, isMobile ? 1 : 3);
+    const groupedObjects = chunkArray(objects, 1);
 
-    console.log('test', groupedObjects)
     return (
         <Box display={'flex'} alignItems={'center'}>
             {!isMobile && (
@@ -51,12 +50,12 @@ const Carusel = ({ objects }: { objects: string[] }) => {
                     groupedObjects.map((group, index) => (
                         <Box key={index} display="flex" justifyContent="center" width="100%">
                             {group.map((item, itemIndex) => (
-                                <Card key={itemIndex} style={{ marginRight: 20, boxShadow: 'none',  width: isMobile ? '100%' : '45%' }}>
+                                <Card key={itemIndex} style={{ marginRight: 20, boxShadow: 'none',  width: '100%' }}>
                                     <CardActionArea>
                                         <CardMedia
                                             component="img"
                                             height={isMobile ? '500px' : "400"}
-                                            image={item || backgroundImage || ''}
+                                            image={item.image || backgroundImage || ''}
                                         />
                                     </CardActionArea>
                                 </Card>
