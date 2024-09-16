@@ -5,6 +5,7 @@ import axiosInstance from "../../axios.ts";
 import {ApiPaths} from "../../apiPath.ts";
 import styled from "styled-components";
 import NewsCarusel from "./NewsCarusel.tsx";
+import {useNavigate} from "react-router-dom";
 
 const Title = styled(Typography)`
     font-size: 108px;
@@ -13,7 +14,7 @@ const Title = styled(Typography)`
     text-align: left;
 `;
 
-const StyledButton = styled.div`
+export const StyledButton = styled.div`
     display: flex;
     justify-content: center;
     color: #008E39;
@@ -40,6 +41,7 @@ const News = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [objects, setObjects] = useState<INew[]>([])
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -65,7 +67,7 @@ const News = () => {
                     <NewsCarusel objects={objects}/>
                 </Grid>
                 <Grid item xs={12} mt={5} justifyContent={'center'} display={"flex"}>
-                    <StyledButton>
+                    <StyledButton onClick={()=>navigate('/news')}>
                         все новости
                     </StyledButton>
                 </Grid>

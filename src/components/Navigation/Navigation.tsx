@@ -91,11 +91,19 @@ const Navigation = () => {
                         </>
                     ) : (
                         <>
-                            <StyledNavButton color="inherit">ОБЪЕКТЫ</StyledNavButton>
+                            <StyledNavButton color="inherit"
+                                             onClick={()=>{
+                                                 navigate('/');
+                                             }}
+                            >ОБЪЕКТЫ</StyledNavButton>
                             <StyledNavButton onClick={()=>{
                                 navigate('/about');
                             }} color="inherit">О КОМПАНИИ</StyledNavButton>
-                            <StyledNavButton color="inherit">КОНТАКТЫ</StyledNavButton>
+                            <StyledNavButton color="inherit"
+                                             onClick={()=>{
+                                                 navigate('/');
+                                             }}
+                            >КОНТАКТЫ</StyledNavButton>
                         </>
                     )}
                 </Toolbar>

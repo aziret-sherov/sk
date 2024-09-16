@@ -17,6 +17,7 @@ import {IObject} from "./Objects.tsx";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import backgroundImage from "../../assets/testImg.png";
+import {useNavigate} from "react-router-dom";
 
 const StyledNumbers = styled(Typography)<{ hovered: boolean }>`
     color: ${({hovered}) => (hovered ? `#008E39` : `#CCCCCC`)};
@@ -48,6 +49,7 @@ const CustomCarusel = ({object, objects}: { object: IObject; objects?: IObject[]
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [slideIndex, setSlideIndex] = useState<number>(0)
+    const navigate = useNavigate();
 
     const onChangeIndex = (index: number) => {
         setSlideIndex(index)
@@ -137,6 +139,12 @@ const CustomCarusel = ({object, objects}: { object: IObject; objects?: IObject[]
                                                 image={item.image || backgroundImage}
                                             />
                                         </CardActionArea>
+                                        <Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>
+                                            <StyledButton onClick={()=> navigate(`/construction_projects/${item.id}`)}>
+                                                Подробнее
+                                            </StyledButton>
+                                        </Grid>
+
                                     </Card>
                                 ))
                                 : <Card >
@@ -167,11 +175,6 @@ const CustomCarusel = ({object, objects}: { object: IObject; objects?: IObject[]
                         </IconButton>
                     </Box>
                 </div>
-            </Grid>
-            <Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>
-                <StyledButton>
-                    Подробнее
-                </StyledButton>
             </Grid>
         </Grid>
     );

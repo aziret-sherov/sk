@@ -32,9 +32,14 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
     const groupedObjects = chunkArray(objects, 1);
 
     return (
-        <Box display={'flex'} alignItems={'center'}>
+        <Box display={'flex'} alignItems={'center'} position="relative" justifyContent="center">
             {!isMobile && (
-                <Box onClick={() => onChangeIndex(slideIndex - 1)} mr={4}>
+                <Box
+                    onClick={() => onChangeIndex(slideIndex - 1)}
+                    position="absolute"
+                    left={16}
+                    zIndex={1}
+                    style={{ cursor: 'pointer' }}>
                     <Box height={50} component={'img'} src={RotatedArrow} />
                 </Box>
             )}
@@ -43,6 +48,7 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
                 style={{ padding: '0', margin: 0, width: '100%' }}
                 slideStyle={{ padding: '5px', margin: 0, width: '100%' }}
                 enableMouseEvents
+                springConfig={{ duration: '0.6s', easeFunction: 'ease-in-out', delay: '0s' }} // Smooth transitions
                 onChangeIndex={onChangeIndex}
                 index={slideIndex}
             >
@@ -50,11 +56,12 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
                     groupedObjects.map((group, index) => (
                         <Box key={index} display="flex" justifyContent="center" width="100%">
                             {group.map((item, itemIndex) => (
-                                <Card key={itemIndex} style={{ marginRight: 20, boxShadow: 'none',  width: '100%' }}>
+                                <Card key={itemIndex} style={{ marginRight: 20, boxShadow: 'none', width: '100%' }}>
                                     <CardActionArea>
                                         <CardMedia
                                             component="img"
-                                            height={isMobile ? '500px' : "400"}
+                                            height={isMobile ? '300px' : "500px"}  // Reduced height on mobile for better viewing
+                                            style={{ objectFit: 'cover', borderRadius: '8px' }}  // Adjust image styling
                                             image={item.image || backgroundImage || ''}
                                         />
                                     </CardActionArea>
@@ -66,7 +73,12 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
             </SwipeableViews>
 
             {!isMobile && (
-                <Box onClick={() => onChangeIndex(slideIndex + 1)} ml={4}>
+                <Box
+                    onClick={() => onChangeIndex(slideIndex + 1)}
+                    position="absolute"
+                    right={16}
+                    zIndex={1}
+                    style={{ cursor: 'pointer' }}>
                     <Box height={50} component={'img'} src={Arrow} />
                 </Box>
             )}

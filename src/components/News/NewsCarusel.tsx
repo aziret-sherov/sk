@@ -15,11 +15,13 @@ import {
 import { useState } from "react";
 import { INew } from "./News.tsx";
 import backgroundImage from "../../assets/testImg.png";
+import {useNavigate} from "react-router-dom";
 
 const NewsCarusel = ({ objects }: { objects: INew[] }) => {
     const [slideIndex, setSlideIndex] = useState<number>(0);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const navigate = useNavigate();
 
     const onChangeIndex = (index: number) => {
         setSlideIndex((index + groupedObjects.length) % groupedObjects.length);
@@ -77,7 +79,7 @@ const NewsCarusel = ({ objects }: { objects: INew[] }) => {
                                                 </Typography>
                                             </Box>
                                             <Box>
-                                                <Button variant={'contained'} color={"success"}>подробнее</Button>
+                                                <Button variant={'contained'} color={"success"} onClick={()=>navigate(`/news/${item.id}`)}>подробнее</Button>
                                             </Box>
                                         </CardContent>
                                     </CardActionArea>

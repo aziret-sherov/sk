@@ -1,5 +1,5 @@
 import CustomContainer from "../CustomContainer/CustomContainer.tsx";
-import {Grid, Paper, Typography, useMediaQuery, useTheme} from "@mui/material";
+import {Box, Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
 import styled from "styled-components";
 import axiosInstance from "../../axios.ts";
 import {ApiPaths} from "../../apiPath.ts";
@@ -12,18 +12,13 @@ const Title = styled(Typography)`
     text-align: left;
 `;
 
-const Item = styled(Paper)`
-    border: none;
-    height: 300px;
-`;
-
-const StyledButton = styled.div`
-    background: #008E39;
-    color: white;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-`;
+// const StyledButton = styled.div`
+//     background: #008E39;
+//     color: white;
+//     padding: 10px;
+//     border-radius: 4px;
+//     cursor: pointer;
+// `;
 
 const References = () => {
     const theme = useTheme();
@@ -50,23 +45,43 @@ const References = () => {
                    fontSize={isMobile ? '56px' : '108px'}>
                 Преимущества
             </Title>
-            <Grid container={!isMobile} mt={5} spacing={6} display={"flex"} flexDirection={isMobile ? "column" : "row"}>
+            <Grid
+                container={!isMobile}
+                mt={5}
+                spacing={6}
+                display={"flex"}
+                flexDirection={isMobile ? "column" : "row"}
+            >
                 {
-                    references.map((reference) => (
-                            <Grid item xs={4}>
-                                <Item>
-                                    <img width="100%" src={reference.image_url} alt={reference.image_url}/>
-                                </Item>
-                            </Grid>
-                        )
-                    )
+                    references.map((reference, index) => (
+                        <Grid item xs={12} sm={6} gap={2} md={4} key={index}> {/* Ensure responsiveness */}
+                            <Box
+                                component="img"
+                                src={reference.image_url}
+                                alt={`Image ${index}`}
+                                sx={{
+                                    width: '100%',
+                                    height: 'auto', // Maintains the aspect ratio
+                                    objectFit: 'cover', // Ensures the image fills the box nicely
+                                    borderRadius: '8px', // Rounded corners for a modern look
+                                    transition: 'transform 0.3s ease-in-out', // Smooth hover effect
+                                    '&:hover': {
+                                        transform: 'scale(1.05)', // Slightly zoom in on hover
+                                    },
+                                    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', // Subtle shadow effect
+                                    cursor: 'pointer'
+                                }}
+                            />
+                        </Grid>
+                    ))
                 }
-                <Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>
-                    <StyledButton>
-                        Подробнее
-                    </StyledButton>
-                </Grid>
+                {/*<Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>*/}
+                {/*    <StyledButton>*/}
+                {/*        Подробнее*/}
+                {/*    </StyledButton>*/}
+                {/*</Grid>*/}
             </Grid>
+
         </CustomContainer>
     );
 };
