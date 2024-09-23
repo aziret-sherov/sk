@@ -9,4 +9,5 @@ export const ApiPaths = {
     news_details: (id:string)=>`content/news/detail/${id}/`,
     address: 'info/address/',
     news: 'content/news/',
+    logo_animation: 'info/logo_animation/'
 }
