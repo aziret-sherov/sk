@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {useEffect, useState} from "react";
 import axiosInstance from "../../axios.ts";
 import {ApiPaths} from "../../apiPath.ts";
+import CustomMap from "./CustomMap.tsx";
 
 export interface IContact {
     icon: string;
@@ -82,22 +83,10 @@ const Contacts = () => {
                 </Grid>
                 <Grid item xs={isMobile ? 12 : 8} mt={isMobile ? 5 : 0} mb={4}>
                     <Box height={600} sx={{backgroundColor: '#DCDCDC', borderRadius: '4px'}}>
-
+                        <CustomMap/>
                     </Box>
                 </Grid>
             </Grid>
-            {/*<Grid item xs={12} mt={4} justifyContent={"center"} display={"flex"}>*/}
-            {/*    <Box*/}
-            {/*        display={"flex"}*/}
-            {/*        alignItems={'end'}*/}
-            {/*        ml={2}*/}
-            {/*        mb={5}*/}
-            {/*    >*/}
-            {/*        <Button variant={"contained"} color={"success"} fullWidth>*/}
-            {/*            получить консультацию*/}
-            {/*        </Button>*/}
-            {/*    </Box>*/}
-            {/*</Grid>*/}
         </CustomContainer>
     );
 };
