@@ -100,7 +100,7 @@ const Carusel = ({ objects }: { objects: IObject[] }) => {
                                                 variant={'contained'}
                                                 color={"success"}
                                                 onClick={()=>navigate(`/object/${item.id}`)}
-                                            >подробнее</Button>
+                                            >ПОДРОБНЕЕ</Button>
                                         </Box>
                                     </CardContent>
                                 </CardActionArea>

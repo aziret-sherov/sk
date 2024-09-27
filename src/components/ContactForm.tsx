@@ -10,17 +10,8 @@ import {
     useTheme
 } from "@mui/material";
 import backgroundImage from '../assets/contact-form-image.png';
-import styled from "styled-components";
 import axiosInstance from "../axios.ts";
 import {ApiPaths} from "../apiPath.ts";
-
-const Title = styled(Typography)`
-    font-size: 108px;
-    font-weight: 600;
-    line-height: 54px;
-    text-align: left;
-    color: white;
-`;
 
 const ContactForm = () => {
     const theme = useTheme();
@@ -64,15 +55,16 @@ const ContactForm = () => {
             <form onSubmit={handleSubmit}>
                 <Grid container>
                     <Grid item xs={12}>
-                        <Title
+                        <Typography
                             lineHeight={isMobile ? '45px' : '80px'}
                             fontFamily={"DIN Condensed"}
                             fontSize={isMobile ? '56px' : '108px'}
                             ml={5}
                             mb={5}
+                            color={'white'}
                         >
                             Получить консультацию
-                        </Title>
+                        </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container>

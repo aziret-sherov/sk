@@ -77,7 +77,7 @@ const References = () => {
                 }
                 {/*<Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>*/}
                 {/*    <StyledButton>*/}
-                {/*        Подробнее*/}
+                {/*        ПОДРОБНЕЕ*/}
                 {/*    </StyledButton>*/}
                 {/*</Grid>*/}
             </Grid>

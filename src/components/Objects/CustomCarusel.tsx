@@ -70,16 +70,26 @@ const CustomCarusel = ({object, objects}: { object: IObject; objects?: IObject[]
     return (
         <Grid container mt={5}>
             {!isMobile && <Grid item xs={1}>
-                {
-                    objects?.map((obj, index) =>
-                        <StyledNumbers key={index} fontFamily={"DIN Condensed"}
-                                       fontSize={index === 2 ? '48px' : '40px'}
-                                       fontWeight={700}
-                                       hovered={obj === object}
-                                       lineHeight={1}>
-                            №{index + 1}
-                        </StyledNumbers>
-                    )
+                {   objects &&
+                    objects.length > 2
+                        ? objects.slice(0,2)?.map((obj, index) =>
+                            <StyledNumbers key={index} fontFamily={"DIN Condensed"}
+                                           fontSize={obj === object ? '48px' : '40px'}
+                                           fontWeight={700}
+                                           hovered={obj === object}
+                                           lineHeight={1}>
+                                №{index + 1}
+                            </StyledNumbers>
+                        )
+                        : objects?.map((obj, index) =>
+                            <StyledNumbers key={index} fontFamily={"DIN Condensed"}
+                                           fontSize={obj === object ? '48px' : '40px'}
+                                           fontWeight={700}
+                                           hovered={obj === object}
+                                           lineHeight={1}>
+                                №{index + 1}
+                            </StyledNumbers>
+                        )
                 }
             </Grid>}
             <Grid item xs={isMobile ? 12 : 11}>
@@ -141,7 +151,7 @@ const CustomCarusel = ({object, objects}: { object: IObject; objects?: IObject[]
                                         </CardActionArea>
                                         <Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>
                                             <StyledButton onClick={()=> navigate(`/construction_projects/${item.id}`)}>
-                                                Подробнее
+                                                ПОДРОБНЕЕ
                                             </StyledButton>
                                         </Grid>
 

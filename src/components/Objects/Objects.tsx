@@ -70,7 +70,9 @@ const Objects = () => {
                 Строящиеся объекты
             </Title>
             {
-                objects.map(object=>(<CustomCarusel object={object} objects={objects}/>))
+                objects.length > 2
+                    ? objects.slice(0,2).map(object=>(<CustomCarusel object={object} objects={objects}/>))
+                    : objects.map(object=>(<CustomCarusel object={object} objects={objects}/>))
             }
             <Grid container mt={5} mb={5}>
             {/*    <Grid item xs={12} justifyContent={'center'} display={"flex"}>*/}

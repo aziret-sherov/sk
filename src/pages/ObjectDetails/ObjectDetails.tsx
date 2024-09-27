@@ -262,7 +262,7 @@ const ObjectDetails = () => {
                                                 </Typography>
                                             </Box>
                                             <Box>
-                                                <Button variant={'contained'} color={"success"}>подробнее</Button>
+                                                <Button variant={'contained'} color={"success"}>ПОДРОБНЕЕ</Button>
                                             </Box>
                                         </CardContent>
                                     </CardActionArea>
@@ -294,7 +294,7 @@ const ObjectDetails = () => {
                                                 </Typography>
                                             </Box>
                                             <Box>
-                                                <Button variant={'contained'} color={"success"}>подробнее</Button>
+                                                <Button variant={'contained'} color={"success"}>ПОДРОБНЕЕ</Button>
                                             </Box>
                                         </CardContent>
                                     </CardActionArea>
@@ -326,7 +326,7 @@ const ObjectDetails = () => {
                                                 </Typography>
                                             </Box>
                                             <Box>
-                                                <Button variant={'contained'} color={"success"}>подробнее</Button>
+                                                <Button variant={'contained'} color={"success"}>ПОДРОБНЕЕ</Button>
                                             </Box>
                                         </CardContent>
                                     </CardActionArea>
@@ -358,7 +358,7 @@ const ObjectDetails = () => {
                                                 </Typography>
                                             </Box>
                                             <Box>
-                                                <Button variant={'contained'} color={"success"}>подробнее</Button>
+                                                <Button variant={'contained'} color={"success"}>ПОДРОБНЕЕ</Button>
                                             </Box>
                                         </CardContent>
                                     </CardActionArea>

@@ -76,7 +76,7 @@ const NewsList = () => {
                                                     </Typography>
                                                 </Box>
                                                 <Box>
-                                                    <Button variant={'contained'} color={"success"} onClick={()=>navigate(`/news/${item.id}`)}>подробнее</Button>
+                                                    <Button variant={'contained'} color={"success"} onClick={()=>navigate(`/news/${item.id}`)}>ПОДРОБНЕЕ</Button>
                                                 </Box>
                                             </CardContent>
                                         </CardActionArea>
