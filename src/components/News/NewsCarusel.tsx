@@ -78,7 +78,7 @@ const NewsCarusel = ({ objects }: { objects: INew[] }) => {
                                                     {item.description}
                                                 </Typography>
                                             </Box>
-                                            <Box>
+                                            <Box mt={5}>
                                                 <Button variant={'contained'} color={"success"} onClick={()=>navigate(`/news/${item.id}`)}>ПОДРОБНЕЕ</Button>
                                             </Box>
                                         </CardContent>

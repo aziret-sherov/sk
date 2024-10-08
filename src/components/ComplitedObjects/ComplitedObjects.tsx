@@ -35,9 +35,13 @@ const ComplitedObjects = () => {
         fetchData()
     }, []);
 
+    if (!objects.length){
+        return <></>
+    }
+
     return (
         <CustomContainer background={'#FFFFFF'} height=''>
-            {
+            { objects.length > 0 &&
                 localHre !== '/about' &&
                 <Title lineHeight={isMobile ?  '45px' : '80px'} mt={4} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
                     Завершённые объекты

@@ -75,7 +75,7 @@ const NewsList = () => {
                                                         {item.description}
                                                     </Typography>
                                                 </Box>
-                                                <Box>
+                                                <Box mt={2}>
                                                     <Button variant={'contained'} color={"success"} onClick={()=>navigate(`/news/${item.id}`)}>ПОДРОБНЕЕ</Button>
                                                 </Box>
                                             </CardContent>

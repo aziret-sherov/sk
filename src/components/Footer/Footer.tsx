@@ -28,7 +28,7 @@ const Footer = () => {
                 <Grid item xs={12}>
                     <Grid container>
                         <Grid item xs={ isMobile ? 12 : 8} mt={isMobile ? 5 : 0}>
-                            <Grid container>
+                            <Grid container p={isMobile ? '' : '10'}>
                                 <Grid item xs={12}>
                                     <Title fontFamily={"DIN Condensed"} fontSize={'36px'}>
                                         Отдел продаж
@@ -71,7 +71,7 @@ const Footer = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} mt={isMobile ? 10 : 0}>
+                <Grid item xs={12} mt={isMobile ? 10 : 0} p={isMobile ? '' : '10'}>
                     <Box component="img" sx={{ flexGrow: 1 }} src={logoImage} alt="Logo" style={{maxHeight: '50px'}}/>
                 </Grid>
                 <Grid item xs={12}>

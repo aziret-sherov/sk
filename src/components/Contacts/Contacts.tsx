@@ -25,7 +25,7 @@ const Contacts = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [contacts, setContacts] = useState<IContact[]>([]);
-    const [addresses, setAddresses] = useState([{address:''}])
+    const [addresses, setAddresses] = useState([{address: []}])
 
     const fetchData = async () => {
         try {
@@ -65,7 +65,7 @@ const Contacts = () => {
                         {
                             contacts.map((contact)=>
                                 <Grid display={'flex'} item xs={12}>
-                                    <Box height={25} component={'img'} src={contact.icon}/>
+                                    <Box height={25} width={25} component={'img'} src={contact.icon}/>
                                     <Typography ml={2}>{contact.number}</Typography>
                                 </Grid>
                             )
@@ -83,7 +83,7 @@ const Contacts = () => {
                 </Grid>
                 <Grid item xs={isMobile ? 12 : 8} mt={isMobile ? 5 : 0} mb={4}>
                     <Box height={600} sx={{backgroundColor: '#DCDCDC', borderRadius: '4px'}}>
-                        <CustomMap/>
+                        <CustomMap addresses={addresses}/>
                     </Box>
                 </Grid>
             </Grid>
