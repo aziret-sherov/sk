@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import backgroundImage from "../../assets/testImg.png";
+import styled from "styled-components";
 
 const Carusel = ({ objects }: { objects: { image:string }[] }) => {
     const [slideIndex, setSlideIndex] = useState<number>(0);
@@ -32,6 +33,7 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
     const groupedObjects = chunkArray(objects, 1);
 
     return (
+        <>
         <Box display={'flex'} alignItems={'center'} position="relative" justifyContent="center">
             {!isMobile && (
                 <Box
@@ -48,7 +50,7 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
                 style={{ padding: '0', margin: 0, width: '100%' }}
                 slideStyle={{ padding: '5px', margin: 0, width: '100%' }}
                 enableMouseEvents
-                springConfig={{ duration: '0.6s', easeFunction: 'ease-in-out', delay: '0s' }} // Smooth transitions
+                springConfig={{ duration: '0.6s', easeFunction: 'ease-in-out', delay: '0s' }}
                 onChangeIndex={onChangeIndex}
                 index={slideIndex}
             >
@@ -56,12 +58,12 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
                     groupedObjects.map((group, index) => (
                         <Box key={index} display="flex" justifyContent="center" width="100%">
                             {group.map((item, itemIndex) => (
-                                <Card key={itemIndex} style={{ marginRight: 20, boxShadow: 'none', width: '100%' }}>
+                                <Card key={itemIndex} style={{ marginRight: 20, boxShadow: 'none', width: '88%' }}>
                                     <CardActionArea>
                                         <CardMedia
                                             component="img"
-                                            height={isMobile ? '300px' : "500px"}  // Reduced height on mobile for better viewing
-                                            style={{ objectFit: 'cover', borderRadius: '8px' }}  // Adjust image styling
+                                            height={isMobile ? '300px' : "700px"}
+                                            style={{ objectFit: 'cover', borderRadius: '8px' }}
                                             image={item.image || backgroundImage || ''}
                                         />
                                     </CardActionArea>
@@ -83,7 +85,33 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
                 </Box>
             )}
         </Box>
+        <Box display={'flex'} alignItems={'center'} position="relative" justifyContent="center" width='100%'>
+            <PaginationDots dots={groupedObjects.length} index={slideIndex} onChangeIndex={onChangeIndex} />
+        </Box>
+    </>
     );
 };
 
 export default Carusel;
+
+
+
+const Dot = styled.div<{ active: boolean }>`
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: ${({ active }) => (active ? "#008E39" : "#CCCCCC")};
+  border-radius: 50%;
+  display: inline-block;
+`;
+
+
+const PaginationDots = ({ dots, index, onChangeIndex }: { dots: number; index: number; onChangeIndex: (index: number) => void }) => {
+    return (
+        <Box display="flex" justifyContent="center" mt={2}>
+            {Array.from({ length: dots }).map((_, i) => (
+                <Dot key={i} active={i === index} onClick={() => onChangeIndex(i)} />
+            ))}
+        </Box>
+    );
+};

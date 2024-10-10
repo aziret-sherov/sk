@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useEffect, useMemo } from "react";
+import logoImage from '../../assets/customPin.png';
 
 const CustomMap = ({ addresses }: { addresses: any[] }) => {
 
@@ -18,8 +19,8 @@ const CustomMap = ({ addresses }: { addresses: any[] }) => {
     }), [addresses]);
 
     const icon = L.icon({
-        iconUrl: 'https://www.iconpacks.net/icons/2/free-location-pin-icon-2965-thumb.png',
-        iconSize: [48, 48],
+        iconUrl: logoImage,
+        iconSize: [25, 32],
     });
 
     return (

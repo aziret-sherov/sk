@@ -65,11 +65,7 @@ const References = () => {
                                     objectFit: 'cover', // Ensures the image fills the box nicely
                                     borderRadius: '8px', // Rounded corners for a modern look
                                     transition: 'transform 0.3s ease-in-out', // Smooth hover effect
-                                    '&:hover': {
-                                        transform: 'scale(1.05)', // Slightly zoom in on hover
-                                    },
                                     boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', // Subtle shadow effect
-                                    cursor: 'pointer'
                                 }}
                             />
                         </Grid>

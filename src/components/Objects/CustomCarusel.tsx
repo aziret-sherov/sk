@@ -95,7 +95,7 @@ const CustomCarusel = ({object, objects}: { object: IObject; objects?: IObject[]
             <Grid item xs={isMobile ? 12 : 11}>
                 <Grid item xs={12} display={'flex'} justifyContent={'center'}>
                     <Grid container>
-                        <Grid item xs={6}>
+                        <Grid item xs={isMobile ? 12 : 6}>
                             <Subtitle variant='body1' fontFamily={'Geologica, serif'}>
                                 Жилой комплекс
                             </Subtitle>
@@ -133,39 +133,40 @@ const CustomCarusel = ({object, objects}: { object: IObject; objects?: IObject[]
                         </IconButton>
                         <SwipeableViews
                             style={{padding: '0', margin: 0,}}
-                            slideStyle={{padding: '0', margin: 0, width: '85%', marginRight: 20}}
+                            slideStyle={{padding: '0', margin: 0, width: isMobile ? '100%' : '85%', marginRight: 20}}
                             enableMouseEvents
                             onChangeIndex={onChangeIndex}
                             index={slideIndex}
                         >
                             {
                                 object.construction_projects_images.length > 0 ?
-                                object.construction_projects_images.map((item, index) => (
-                                    <Card key={index}>
+                                    object.construction_projects_images.map((item, index) => (
+                                        <Card key={index}>
+                                            <CardActionArea>
+                                                <CardMedia
+                                                    component="img"
+                                                    height={isMobile ? '500' : "740"}
+                                                    image={item.image || backgroundImage}
+                                                />
+                                            </CardActionArea>
+                                            <Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>
+                                                <StyledButton
+                                                    onClick={() => navigate(`/construction_projects/${item.id}`)}>
+                                                    ПОДРОБНЕЕ
+                                                </StyledButton>
+                                            </Grid>
+
+                                        </Card>
+                                    ))
+                                    : <Card>
                                         <CardActionArea>
                                             <CardMedia
                                                 component="img"
                                                 height={isMobile ? '500' : "600"}
-                                                image={item.image || backgroundImage}
+                                                image={backgroundImage}
                                             />
                                         </CardActionArea>
-                                        <Grid item xs={12} display={'flex'} justifyContent={'center'} mt={2}>
-                                            <StyledButton onClick={()=> navigate(`/construction_projects/${item.id}`)}>
-                                                ПОДРОБНЕЕ
-                                            </StyledButton>
-                                        </Grid>
-
                                     </Card>
-                                ))
-                                : <Card >
-                                <CardActionArea>
-                                        <CardMedia
-                                            component="img"
-                                            height={isMobile ? '500' : "600"}
-                                            image={ backgroundImage}
-                                        />
-                                        </CardActionArea>
-                                </Card>
                             }
                         </SwipeableViews>
                         <IconButton

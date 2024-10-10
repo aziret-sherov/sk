@@ -87,7 +87,7 @@ const ObjectDetails = () => {
 
 
     const fetchData = async () => {
-        if (params?.id){
+        if (params?.id) {
             try {
                 const response = await axiosInstance.get(ApiPaths.completed_projects_details(params?.id));
                 setObjects(response.data)
@@ -95,7 +95,7 @@ const ObjectDetails = () => {
                 console.error('Error fetching data', error);
                 throw error;
             }
-        }else {
+        } else {
             return
         }
     }
@@ -138,14 +138,14 @@ const ObjectDetails = () => {
                 <Grid container spacing={3} justifyContent="center" mb={4} mt={4}>
                     {objects.about_completed_projects.length > 0 &&
                         objects.about_completed_projects.map((detail, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={index}>
-                            <DetailItem
-                                icon={detail.icon}
-                                title={detail.title}
-                                description={detail.desc}
-                            />
-                        </Grid>
-                    ))}
+                            <Grid item xs={12} sm={6} md={4} key={index}>
+                                <DetailItem
+                                    icon={detail.icon}
+                                    title={detail.title}
+                                    description={detail.desc}
+                                />
+                            </Grid>
+                        ))}
                 </Grid>
 
             </CustomContainer>

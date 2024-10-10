@@ -1,6 +1,6 @@
 import Navigation from "../../components/Navigation/Navigation.tsx";
 import {
-    Box,
+    Box, Button,
     Grid,
     Typography,
     useMediaQuery,
@@ -145,6 +145,12 @@ const ConstructionObjectDetails = () => {
                 </Title>
                 <Grid container mt={5} mb={5}>
                         <Carusel objects={objects?.construction_projects_images}/>
+                </Grid>
+                <Grid item xs={12} display="flex" justifyContent="center">
+                    <Button
+                        variant={'contained'}
+                        color={"success"}
+                    >ОСТАВИТЬ ЗАЯВКУ</Button>
                 </Grid>
             </CustomContainer>
 

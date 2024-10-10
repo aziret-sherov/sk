@@ -1,84 +1,162 @@
 import CustomContainer from "../CustomContainer/CustomContainer.tsx";
 import backgroundImage from "../../assets/FooterBackground.png";
-import {Box, Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import styled from "styled-components";
 import logoImage from '../../assets/FooterLogo.png';
+import axiosInstance from "../../axios.ts";
+import { ApiPaths } from "../../apiPath.ts";
+import { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
+
+interface Schedule {
+    id: number;
+    title: string;
+    weekdays_title: string;
+    weekdays_hours: string;
+    weekends_title: string;
+    weekends_hours: string;
+}
 
 const Title = styled(Typography)`
-    font-size: 108px;
-    font-weight: 600;
-    line-height: 54px;
-    text-align: left;
-    color: white;
+  font-size: 108px;
+  font-weight: 600;
+  line-height: 54px;
+  text-align: left;
+  color: white;
+  cursor: pointer;
 `;
 
 const Footer = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const navigate = useNavigate();
+
+    const [schedules, setSchedules] = useState<Schedule[] | null>(null); // Define the type of schedules as an array of Schedule or null
+
+    const fetchSchedules = async () => {
+        try {
+            const response = await axiosInstance.get<{ results: Schedule[] }>(ApiPaths.schedule);
+            setSchedules(response.data.results);
+        } catch (error) {
+            console.error('Error fetching schedules', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchSchedules();
+    }, []);
+
     return (
-        <CustomContainer
-            height={''}
-        >
+        <CustomContainer height={''}>
             <Grid container>
                 <Grid item xs={12}>
-                    <Title lineHeight={isMobile ?  '45px' : '80px'} fontFamily={"DIN Condensed"} fontSize={isMobile ? '56px' : '108px'}>
+                    <Title
+                        lineHeight={isMobile ? '45px' : '80px'}
+                        fontFamily={"DIN Condensed"}
+                        fontSize={isMobile ? '56px' : '108px'}
+                    >
                         График работы
                     </Title>
                 </Grid>
-                <Grid item xs={12}>
+
+                <Grid item xs={12} pt={isMobile ? '' : 10} pl={isMobile ? '' : 10}>
                     <Grid container>
-                        <Grid item xs={ isMobile ? 12 : 8} mt={isMobile ? 5 : 0}>
+                        <Grid item xs={isMobile ? 12 : 8} mt={isMobile ? 5 : 0}>
                             <Grid container p={isMobile ? '' : '10'}>
                                 <Grid item xs={12}>
                                     <Title fontFamily={"DIN Condensed"} fontSize={'36px'}>
                                         Отдел продаж
                                     </Title>
                                 </Grid>
-                                <Grid item xs={isMobile ? 12 :6}>
-                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'}>
-                                        Понедельник - Пятница
-                                    </Title>
-                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
-                                        9:00 - 19:00
-                                    </Title>
-                                </Grid>
-                                <Grid item xs={isMobile ? 12 :6}>
-                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'}>
-                                        Понедельник - Пятница
-                                    </Title>
-                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
-                                        9:00 - 19:00
-                                    </Title>
-                                </Grid>
+
+                                {schedules?.map((schedule) => (
+                                    <Grid container key={schedule.id} spacing={2}>
+                                        <Grid item xs={isMobile ? 12 : 6}>
+                                            <Title fontFamily={"DIN Condensed"} fontSize={'20px'}>
+                                                {schedule.weekdays_title}
+                                            </Title>
+                                            <Title fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
+                                                {schedule.weekdays_hours}
+                                            </Title>
+                                        </Grid>
+                                        <Grid item xs={isMobile ? 12 : 6}>
+                                            <Title fontFamily={"DIN Condensed"} fontSize={'20px'}>
+                                                {schedule.weekends_title}
+                                            </Title>
+                                            <Title fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
+                                                {schedule.weekends_hours}
+                                            </Title>
+                                        </Grid>
+                                    </Grid>
+                                ))}
                             </Grid>
                         </Grid>
-                        <Grid item xs={ isMobile ? 12 : 4} mt={isMobile ? 5 : 0}>
+
+                        <Grid item xs={isMobile ? 12 : 4} mt={isMobile ? 5 : 0}>
                             <Grid container>
                                 <Grid item xs={12}>
                                     <Title lineHeight={'45px'} fontFamily={"DIN Condensed"} fontSize={'56px'}>
                                         Касса
                                     </Title>
                                 </Grid>
-                                <Grid item xs={6}>
-                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'}>
-                                        Понедельник - Пятница
-                                    </Title>
-                                    <Title  fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
-                                        9:00 - 19:00
-                                    </Title>
-                                </Grid>
+
+                                {/* Reusing one of the schedules */}
+                                {schedules && schedules.length > 0 && (
+                                    <Grid item xs={6}>
+                                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'}>
+                                            {schedules[0].weekdays_title}
+                                        </Title>
+                                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
+                                            {schedules[0].weekdays_hours}
+                                        </Title>
+                                    </Grid>
+                                )}
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} mt={isMobile ? 10 : 0} p={isMobile ? '' : '10'}>
-                    <Box component="img" sx={{ flexGrow: 1 }} src={logoImage} alt="Logo" style={{maxHeight: '50px'}}/>
+
+                <Grid
+                    item
+                    xs={12}
+                    mt={isMobile ? 10 : 0}
+                    p={isMobile ? '' : '10'}
+                    pl={isMobile ? '' : 10}
+                    pt={isMobile ? '' : 10}
+                    display="flex"
+                    justifyContent="space-between"
+                >
+                    <Box width="50%">
+                        <Box
+                            component="img"
+                            sx={{ flexGrow: 1 }}
+                            src={logoImage}
+                            alt="Logo"
+                            style={{ maxHeight: '50px', width: isMobile ? '90%' : '' }}
+                        />
+                    </Box>
+                    <Box width="50%">
+                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
+                            navigate('/');
+                        }}>
+                            ОБЪЕКТЫ
+                        </Title>
+                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
+                            navigate('/');
+                        }}>
+                            КОНТАКТЫ
+                        </Title>
+                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
+                            navigate('/about');
+                        }}>
+                            О КОМПАНИИ
+                        </Title>
+                    </Box>
                 </Grid>
+
                 <Grid item xs={12}>
-                    <CustomContainer
-                        height='175px'
-                        backgroundImage={`url(${backgroundImage})`}
-                    />
+                    <CustomContainer height="175px" backgroundImage={`url(${backgroundImage})`} />
                 </Grid>
             </Grid>
         </CustomContainer>
