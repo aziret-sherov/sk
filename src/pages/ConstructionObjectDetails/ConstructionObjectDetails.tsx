@@ -1,6 +1,7 @@
+// @ts-nocheck
 import Navigation from "../../components/Navigation/Navigation.tsx";
 import {
-    Box, Button,
+    Box, Button, Card, CardActions, CardContent, CardMedia, Checkbox,
     Grid,
     Typography,
     useMediaQuery,
@@ -13,10 +14,13 @@ import backgroundImage from "../../assets/testImg.png";
 import Contacts from "../../components/Contacts/Contacts.tsx";
 import Footer from "../../components/Footer/Footer.tsx";
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import axiosInstance from "../../axios.ts";
 import {ApiPaths} from "../../apiPath.ts";
 import Carusel from "../ObjectDetails/Carusel.tsx";
+import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
+import logoImage from "../../assets/customPin.png";
+import L from 'leaflet';
 
 
 const DetailItem = ({icon, title, description}: { icon: string; title: string; description: string }) => (
@@ -65,7 +69,16 @@ const ConstructionObjectDetails = () => {
             desc: '',
 
         }],
-        flat_construction_projects: [],
+        flat_construction_projects: [
+            {
+                id: 0,
+                category: {
+                    title: ""
+                },
+                image: "",
+                completed_projects: 0
+            },
+        ],
         title: "",
         description: "",
         address: "",
@@ -92,6 +105,16 @@ const ConstructionObjectDetails = () => {
     useEffect(() => {
         fetchData()
     }, []);
+
+    const mapCenter = useMemo(() => ({
+        lat: objects.lat || 42.8756483,
+        lng: objects.long || 74.5845829
+    }), [objects]);
+
+    const icon = L.icon({
+        iconUrl: logoImage,
+        iconSize: [25, 32],
+    });
 
     return (
         <>
@@ -154,6 +177,73 @@ const ConstructionObjectDetails = () => {
                 </Grid>
             </CustomContainer>
 
+            <CustomContainer background={'#FFFFFF'} height=''>
+                <Title lineHeight={isMobile ? '45px' : '80px'} color={"black"} fontFamily={"DIN Condensed"}
+                       fontSize={isMobile ? '56px' : '108px'}>
+                    Подобрать квартиру
+                </Title>
+                <Grid container>
+                    <Grid item xs={3} p={2}>
+                        <Title color={"black"} fontWeight={500} fontSize={isMobile ? '56px' : '20px'}>
+                            Кол-во комнат:
+                        </Title>
+                        {objects.flat_construction_projects.length > 0 &&
+                            objects.flat_construction_projects.map((flat, index) => (
+                                <Grid container alignItems="center" key={index}>
+                                    <Checkbox color="success" />
+                                    <Typography>
+                                        {flat.category.title}-к. кв
+                                    </Typography>
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
+                    <Grid item xs={9} mb={3} mt={4}>
+                        <Grid container spacing={'5px'} justifyContent="start">
+                            {objects.flat_construction_projects.length > 0 &&
+                                objects.flat_construction_projects.map((flat, index) => (
+                                    <Grid item xs={12} sm={6} md={4} key={index}>
+                                        <FlatItem
+                                            image={flat.image}
+                                            category={flat.category.title}
+                                            completed_projects={flat.completed_projects}
+                                        />
+                                    </Grid>
+                                ))}
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </CustomContainer>
+
+            <CustomContainer background={'#FFFFFF'} height=''>
+                <Title lineHeight={isMobile ? '45px' : '80px'} color={"black"} fontFamily={"DIN Condensed"}
+                       fontSize={isMobile ? '56px' : '108px'}>
+                    РАСПОЛОЖЕНИЕ
+                </Title>
+                <Grid container>
+                    <Grid item xs={12} mt={isMobile ? 5 : 0} mb={4}>
+                        <Box height={760} sx={{backgroundColor: '#DCDCDC', borderRadius: '4px'}}>
+                            <div style={{height: '100%', width: '100%'}}>
+                                <MapContainer center={mapCenter} zoom={11} style={{height: '100%', width: '100%'}}>
+                                    <TileLayer
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    />
+                                    <Marker
+                                        position={[objects.lat, objects.long]}
+                                        icon={icon}
+                                    >
+                                        <Popup>
+                                            {objects?.title || `Marker`}
+                                        </Popup>
+                                    </Marker>
+                                </MapContainer>
+                            </div>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </CustomContainer>
+
             <Contacts/>
             <Footer/>
         </>
@@ -161,3 +251,35 @@ const ConstructionObjectDetails = () => {
 };
 
 export default ConstructionObjectDetails;
+
+
+const FlatItem = ({image, category, completed_projects}: {
+    image: string;
+    category: string;
+    completed_projects: number
+}) => (
+    <Card
+        sx={{
+            background: '#FAFAFA',
+            boxShadow: 'none'
+        }}
+    >
+        <CardMedia
+            component="img"
+            height="340px"
+            image={image}
+            alt={category}
+        />
+        <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+                {category}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+                {completed_projects} projects completed
+            </Typography>
+        </CardContent>
+        <CardActions>
+            <Button variant={'outlined'} color={"success"}>ПОДРОБНЕЕ</Button>
+        </CardActions>
+    </Card>
+);
