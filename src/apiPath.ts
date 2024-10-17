@@ -10,5 +10,8 @@ export const ApiPaths = {
     address: 'info/address/',
     schedule: 'info/schedule/',
     news: 'content/news/',
-    logo_animation: 'info/logo_animation/'
+    logo_animation: 'info/logo_animation/',
+    about: '/info/about_company/',
+    license: '/info/license/',
+    awards: '/info/awards/'
 }
