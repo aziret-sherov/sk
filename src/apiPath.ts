@@ -13,5 +13,6 @@ export const ApiPaths = {
     logo_animation: 'info/logo_animation/',
     about: '/info/about_company/',
     license: '/info/license/',
-    awards: '/info/awards/'
+    awards: '/info/awards/',
+    social_media: '/info/social_media/'
 }

@@ -2,7 +2,7 @@
 import Navigation from "../../components/Navigation/Navigation.tsx";
 import {
     Box, Button, Card, CardActions, CardContent, CardMedia, Checkbox,
-    Grid,
+    Grid, IconButton, Modal,
     Typography,
     useMediaQuery,
     useTheme
@@ -21,6 +21,8 @@ import Carusel from "../ObjectDetails/Carusel.tsx";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 import logoImage from "../../assets/customPin.png";
 import L from 'leaflet';
+import CloseIcon from "@mui/icons-material/Close";
+import ContactForm from "../../components/ContactForm.tsx";
 
 
 const DetailItem = ({icon, title, description}: { icon: string; title: string; description: string }) => (
@@ -183,22 +185,22 @@ const ConstructionObjectDetails = () => {
                     Подобрать квартиру
                 </Title>
                 <Grid container>
-                    <Grid item xs={3} p={2}>
-                        <Title color={"black"} fontWeight={500} fontSize={isMobile ? '56px' : '20px'}>
-                            Кол-во комнат:
-                        </Title>
-                        {objects.flat_construction_projects.length > 0 &&
-                            objects.flat_construction_projects.map((flat, index) => (
-                                <Grid container alignItems="center" key={index}>
-                                    <Checkbox color="success" />
-                                    <Typography>
-                                        {flat.category.title}-к. кв
-                                    </Typography>
-                                </Grid>
-                            ))
-                        }
-                    </Grid>
-                    <Grid item xs={9} mb={3} mt={4}>
+                    {/*<Grid item xs={3} p={2}>*/}
+                    {/*    <Title color={"black"} fontWeight={500} fontSize={isMobile ? '56px' : '20px'}>*/}
+                    {/*        Кол-во комнат:*/}
+                    {/*    </Title>*/}
+                    {/*    {objects.flat_construction_projects.length > 0 &&*/}
+                    {/*        objects.flat_construction_projects.map((flat, index) => (*/}
+                    {/*            <Grid container alignItems="center" key={index}>*/}
+                    {/*                <Checkbox color="success" />*/}
+                    {/*                <Typography>*/}
+                    {/*                    {flat.category.title}-к. кв*/}
+                    {/*                </Typography>*/}
+                    {/*            </Grid>*/}
+                    {/*        ))*/}
+                    {/*    }*/}
+                    {/*</Grid>*/}
+                    <Grid item xs={12} mb={3} mt={4}>
                         <Grid container spacing={'5px'} justifyContent="start">
                             {objects.flat_construction_projects.length > 0 &&
                                 objects.flat_construction_projects.map((flat, index) => (
@@ -214,6 +216,8 @@ const ConstructionObjectDetails = () => {
                     </Grid>
                 </Grid>
             </CustomContainer>
+
+            <ContactForm/>
 
             <CustomContainer background={'#FFFFFF'} height=''>
                 <Title lineHeight={isMobile ? '45px' : '80px'} color={"black"} fontFamily={"DIN Condensed"}
@@ -253,33 +257,59 @@ const ConstructionObjectDetails = () => {
 export default ConstructionObjectDetails;
 
 
-const FlatItem = ({image, category, completed_projects}: {
-    image: string;
-    category: string;
-    completed_projects: number
-}) => (
-    <Card
-        sx={{
-            background: '#FAFAFA',
-            boxShadow: 'none'
-        }}
-    >
-        <CardMedia
-            component="img"
-            height="340px"
-            image={image}
-            alt={category}
-        />
-        <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-                {category}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-                {completed_projects} projects completed
-            </Typography>
-        </CardContent>
-        <CardActions>
-            <Button variant={'outlined'} color={"success"}>ПОДРОБНЕЕ</Button>
-        </CardActions>
-    </Card>
-);
+const FlatItem = ({ image, category }: { image: string; category: string }) => {
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+        <>
+            <Card sx={{ background: '#FAFAFA', boxShadow: 'none' }}>
+                <CardMedia component="img" height="340px" image={image} alt={category} />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {category}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button variant="outlined" color="success" onClick={handleOpen}>
+                        ПОДРОБНЕЕ
+                    </Button>
+                </CardActions>
+            </Card>
+
+            <Modal open={open} onClose={handleClose}>
+                <Box
+                    sx={{
+                        position: 'relative',
+                        width: '100vw',
+                        height: '100vh',
+                        bgcolor: 'background.paper',
+                        margin: 'auto',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        boxShadow: 24,
+                        p: 4,
+                    }}
+                >
+                    <IconButton
+                        sx={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                        }}
+                        onClick={handleClose}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+
+                    <img src={image} alt={category} style={{ maxHeight: '100%', maxWidth: '100%' }} />
+                </Box>
+            </Modal>
+        </>
+    );
+};
+
+

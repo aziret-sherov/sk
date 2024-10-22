@@ -17,6 +17,13 @@ interface Schedule {
     weekends_hours: string;
 }
 
+interface ISocials {
+    id: number;
+    platform: string;
+    link: string;
+    icon: string;
+}
+
 const Title = styled(Typography)`
   font-size: 108px;
   font-weight: 600;
@@ -32,7 +39,8 @@ const Footer = () => {
 
     const navigate = useNavigate();
 
-    const [schedules, setSchedules] = useState<Schedule[] | null>(null); // Define the type of schedules as an array of Schedule or null
+    const [schedules, setSchedules] = useState<Schedule[] | null>(null);
+    const [socials, setSocials] = useState<ISocials[] | null>(null);
 
     const fetchSchedules = async () => {
         try {
@@ -43,8 +51,18 @@ const Footer = () => {
         }
     };
 
+    const fetchSocials = async () => {
+        try {
+            const response = await axiosInstance.get<{ results: ISocials[] }>(ApiPaths.social_media);
+            setSocials(response.data.results);
+        } catch (error) {
+            console.error('Error fetching schedules', error);
+        }
+    };
+
     useEffect(() => {
         fetchSchedules();
+        fetchSocials();
     }, []);
 
     return (
@@ -97,21 +115,47 @@ const Footer = () => {
                             <Grid container>
                                 <Grid item xs={12}>
                                     <Title lineHeight={'45px'} fontFamily={"DIN Condensed"} fontSize={'56px'}>
-                                        Касса
+                                        <br/>
                                     </Title>
                                 </Grid>
 
-                                {/* Reusing one of the schedules */}
                                 {schedules && schedules.length > 0 && (
                                     <Grid item xs={6}>
-                                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'}>
-                                            {schedules[0].weekdays_title}
-                                        </Title>
-                                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'} color={'green'}>
-                                            {schedules[0].weekdays_hours}
-                                        </Title>
+                                        <Box width="50%">
+                                            <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
+                                                navigate('/');
+                                            }}>
+                                                ОБЪЕКТЫ
+                                            </Title>
+                                            <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
+                                                navigate('/');
+                                            }}>
+                                                КОНТАКТЫ
+                                            </Title>
+                                            <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
+                                                navigate('/about');
+                                            }}>
+                                                О КОМПАНИИ
+                                            </Title>
+                                        </Box>
                                     </Grid>
                                 )}
+                                {socials && socials.length > 0 && (
+                                    <Grid item xs={6}>
+                                        <Box width="50%">
+                                            {
+                                                socials.map(social=>(
+                                                    <Box component='img' width="36px" sx={{
+                                                        cursor: 'pointer'
+                                                    }} src={social.icon} onClick={()=>{
+                                                        window.open(social.link, '_blank')
+                                                    }}/>
+                                                ))
+                                            }
+                                        </Box>
+                                    </Grid>
+                                )
+                                }
                             </Grid>
                         </Grid>
                     </Grid>
@@ -135,23 +179,6 @@ const Footer = () => {
                             alt="Logo"
                             style={{ maxHeight: '50px', width: isMobile ? '90%' : '' }}
                         />
-                    </Box>
-                    <Box width="50%">
-                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
-                            navigate('/');
-                        }}>
-                            ОБЪЕКТЫ
-                        </Title>
-                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
-                            navigate('/');
-                        }}>
-                            КОНТАКТЫ
-                        </Title>
-                        <Title fontFamily={"DIN Condensed"} fontSize={'20px'} onClick={()=>{
-                            navigate('/about');
-                        }}>
-                            О КОМПАНИИ
-                        </Title>
                     </Box>
                 </Grid>
 

@@ -157,14 +157,14 @@ const About = () => {
                 </Grid>
             </CustomContainer>}
 
-            <CustomContainer background={'#FFFFFF'} height=''>
+            {objects2.length > 0 && <CustomContainer background={'#FFFFFF'} height=''>
                 <Grid container>
-                    <Grid item xs={12} mb={4}>
+                    {objects2.length > 0 && <Grid item xs={12} mb={4}>
                         <Title lineHeight={isMobile ? '45px' : '80px'} color='black' mt={4} fontFamily={"DIN Condensed"}
                                fontSize={isMobile ? '56px' : '108px'}>
                             мы построили
                         </Title>
-                    </Grid>
+                    </Grid>}
 
                     <Grid item xs={12}>
                         <Grid container spacing={3} justifyContent="center" mb={4} mt={4}>
@@ -181,7 +181,7 @@ const About = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            </CustomContainer>
+            </CustomContainer>}
             <ComplitedObjects/>
             {objects[1] &&
                 <CustomContainer background={'#FFFFFF'} height=''>

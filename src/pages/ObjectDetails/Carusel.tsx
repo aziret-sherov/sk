@@ -62,7 +62,7 @@ const Carusel = ({ objects }: { objects: { image:string }[] }) => {
                                     <CardActionArea>
                                         <CardMedia
                                             component="img"
-                                            height={isMobile ? '300px' : "700px"}
+                                            height={isMobile ? '300px' : "960px"}
                                             style={{ objectFit: 'cover', borderRadius: '8px' }}
                                             image={item.image || backgroundImage || ''}
                                         />

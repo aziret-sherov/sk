@@ -61,7 +61,7 @@ const Navigation = () => {
             <AppBar position="absolute" sx={{p: '15px', background: '#008E39', height: '80px'}}>
                 <Toolbar>
                     <Box component="div" sx={{ flexGrow: 1 }}>
-                        <img src={logoImage} alt="Logo" style={{maxHeight: '50px'}}/>
+                        <img src={logoImage} alt="Logo" style={{maxHeight: '50px', cursor: 'pointer'}} onClick={()=>navigate('/')}/>
                     </Box>
                     {isMobile ? (
                         <>
