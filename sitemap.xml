@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Главная страница -->
+    <url>
+        <loc>https://example.com/</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Объекты (Object Details) -->
+    <url>
+        <loc>https://example.com/object</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://example.com/object/1</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Строительные проекты (Construction Projects) -->
+    <url>
+        <loc>https://example.com/construction_projects</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://example.com/construction_projects/1</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- О компании (About) -->
+    <url>
+        <loc>https://example.com/about</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Новости (News List and Details) -->
+    <url>
+        <loc>https://example.com/news</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://example.com/news/1</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Услуги (Services) -->
+    <url>
+        <loc>https://example.com/services</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Контакты (Contact) -->
+    <url>
+        <loc>https://example.com/contact</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+</urlset>
