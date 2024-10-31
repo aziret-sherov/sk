@@ -108,6 +108,8 @@ const ConstructionObjectDetails = () => {
         fetchData()
     }, []);
 
+    console.log('test', objects)
+
     const mapCenter = useMemo(() => ({
         lat: objects.lat || 42.8756483,
         lng: objects.long || 74.5845829
@@ -216,6 +218,62 @@ const ConstructionObjectDetails = () => {
                     </Grid>
                 </Grid>
             </CustomContainer>
+            <CustomContainer background={'#FFFFFF'} height=''>
+                <Title lineHeight={isMobile ? '45px' : '80px'} color={"black"} fontFamily={"DIN Condensed"}
+                       fontSize={isMobile ? '56px' : '108px'}>
+                    Ход работы
+                </Title>
+
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6} md={5} lg={6}>
+                        {objects.work_process && (
+                            <Box
+                                width="100%" // Makes the image adapt to the grid size
+                                height="auto"
+                                component="img"
+                                src={objects.work_process}
+                                sx={{ maxHeight: '470px' }} // Limits max height for larger screens
+                            />
+                        )}
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={5} lg={6}>
+                        {objects.work_process2 && (
+                            <Box
+                                width="100%"
+                                height="auto"
+                                component="img"
+                                src={objects.work_process2}
+                                sx={{ maxHeight: '470px' }}
+                            />
+                        )}
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={5} lg={6}>
+                        {objects.work_process3 && (
+                            <Box
+                                width="100%"
+                                height="auto"
+                                component="img"
+                                src={objects.work_process3}
+                                sx={{ maxHeight: '470px' }}
+                            />
+                        )}
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={5} lg={6}>
+                        {objects.work_process4 && (
+                            <Box
+                                width="100%"
+                                height="auto"
+                                component="img"
+                                src={objects.work_process4}
+                                sx={{ maxHeight: '470px' }}
+                            />
+                        )}
+                    </Grid>
+                </Grid>
+
+            </CustomContainer>
+
+
 
             <ContactForm/>
 
