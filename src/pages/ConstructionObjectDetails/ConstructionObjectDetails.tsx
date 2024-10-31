@@ -324,7 +324,7 @@ const FlatItem = ({ image, category }: { image: string; category: string }) => {
     return (
         <>
             <Card sx={{ background: '#FAFAFA', boxShadow: 'none' }}>
-                <CardMedia component="img" height="340px" image={image} alt={category} />
+                <CardMedia component="img" image={image} alt={category} />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {category}
