@@ -152,7 +152,7 @@ const ObjectDetails = () => {
             <CustomContainer background={'#FFFFFF'} height=''>
                 <Title lineHeight={isMobile ? '45px' : '80px'} color='black' mt={4} fontFamily={"DIN Condensed"}
                        fontSize={isMobile ? '56px' : '108px'}>
-                    Галлерея
+                    Галерея
                 </Title>
                 <Grid container mt={5} mb={5}>
                     <Grid item xs={12}>

@@ -50,7 +50,19 @@ const Navigation = () => {
     const list = () => (
         <List sx={{ marginTop: '20px' }}>
             {['ОБЪЕКТЫ', 'О КОМПАНИИ', 'КОНТАКТЫ'].map((text, index) => (
-                <ListItem key={index}>
+                <ListItem
+                    key={index}
+                    onClick={() => {
+                        console.log('test', text === 'КОНТАКТЫ')
+                        if (text === 'КОНТАКТЫ') {
+                            const element = document.getElementById('contactID');
+                            console.log('test', element)
+                            if (element) {
+                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }
+                    }}
+                >
                     <StyledListItemText primary={text} />
                 </ListItem>
             ))}
@@ -100,8 +112,11 @@ const Navigation = () => {
                                 navigate('/about');
                             }} color="inherit">О КОМПАНИИ</StyledNavButton>
                             <StyledNavButton color="inherit"
-                                             onClick={()=>{
-                                                 navigate('/');
+                                             onClick={() => {
+                                                 const element = document.getElementById('contactID');
+                                                 if (element) {
+                                                     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                 }
                                              }}
                             >КОНТАКТЫ</StyledNavButton>
                         </>
